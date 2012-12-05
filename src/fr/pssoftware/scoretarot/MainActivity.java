@@ -45,25 +45,6 @@ public class MainActivity extends ListActivity {
 	  }
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menu_add_partie:
-			Intent intent = new Intent(MainActivity.this, NewPartieActivity.class);
-			startActivity(intent);
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-	
-	@Override
 	  protected void onListItemClick(ListView l, View v, int position, long id) {
 		  HashMap<String, String> map = (HashMap<String, String>) getListAdapter().getItem(position);
 			Intent intent = new Intent(MainActivity.this, TableDonneActivity.class);
