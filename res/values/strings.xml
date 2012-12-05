@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Score Tarot</string>
+    <string name="menu_add_partie">Ajouter une partie</string>
+    <string name="menu_add_donne">Ajouter une donne</string>
+    <string name="menu_add_joueur">Ajouter un joueur</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_new_partie">Nouvelle partie</string>
+    <string name="GDH">Date/Heure de la partie</string>
+    <string name="NBJ">Nombre de joueurs</string>
+
+    <string-array name="liste_joueurs">
+        <item>Philippe</item>
+        <item>Nanou</item>
+        <item>Gepetto</item>
+        <item>Morgane</item>
+        <item>Roxane</item>
+    </string-array>
+    <string-array name="min_max_joueurs">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    
+    
+
+    <string name="title_activity_table_donne">Tableau des scores</string>
+
+</resources>
