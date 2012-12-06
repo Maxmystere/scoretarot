@@ -1,14 +1,16 @@
 package fr.pssoftware.scoretarot;
 
 import android.os.Bundle;
+import android.app.Activity;
 import android.app.ListActivity;
 import android.view.Menu;
 
-public class TableDonneActivity extends ListActivity {
+public class TableDonneActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_table_donne);
 	}
 
 	@Override
