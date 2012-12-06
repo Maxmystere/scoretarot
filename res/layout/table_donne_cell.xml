@@ -4,9 +4,11 @@
     android:layout_height="match_parent" >
 
     <RelativeLayout
+        android:id="@+id/tdc_fond"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="1dp"
+        android:background="#003300"
         android:padding="1dp" >
 
         <TextView
@@ -15,25 +17,22 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="+510"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/tdc_contrat"
+            android:id="@+id/tdc_points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="G+10"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/textView5tdc_poignee"
+            android:id="@+id/tdc_poignee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="+PP"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -42,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="+CA"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <ImageView
@@ -56,12 +54,11 @@
             android:src="@drawable/ic_preneur" />
 
         <TextView
-            android:id="@+id/tdc_points"
+            android:id="@+id/tdc_total_points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="+70"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -70,7 +67,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:text="+1"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
