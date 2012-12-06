@@ -2,29 +2,22 @@ package fr.pssoftware.scoretarot;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 
 /**
  * TODO: document your custom view class.
  */
 public class TableDonneCell extends FrameLayout {
-	private String mExampleString; // TODO: use a default from R.string...
-	private int mExampleColor = Color.RED; // TODO: use a default from
-											// R.color...
-	private float mExampleDimension = 0; // TODO: use a default from R.dimen...
-	private Drawable mExampleDrawable;
-
-	private TextPaint mTextPaint;
-	private float mTextWidth;
-	private float mTextHeight;
+	private int contrat=0;
+	private int points=0;
+	private int total_points=0;
+	private int score=0;
+	private int role=0;
+	private int petit=0;
+	private int poignee=0;
+	private int chelem=0;
 
 	public TableDonneCell(Context context) {
 		super(context);
@@ -47,60 +40,90 @@ public class TableDonneCell extends FrameLayout {
 				R.styleable.TableDonneCell, defStyle, 0);
 		LayoutInflater.from(ctx).inflate(R.layout.table_donne_cell, this, true);
 
-		mExampleString = a.getString(R.styleable.TableDonneCell_exampleString);
-		mExampleColor = a.getColor(R.styleable.TableDonneCell_exampleColor,
-				mExampleColor);
-		// Use getDimensionPixelSize or getDimensionPixelOffset when dealing
-		// with
-		// values that should fall on pixel boundaries.
-		mExampleDimension = a.getDimension(
-				R.styleable.TableDonneCell_exampleDimension, mExampleDimension);
-
-		if (a.hasValue(R.styleable.TableDonneCell_exampleDrawable)) {
-			mExampleDrawable = a
-					.getDrawable(R.styleable.TableDonneCell_exampleDrawable);
-			mExampleDrawable.setCallback(this);
-		}
-
+		contrat = a.getInt(R.styleable.TableDonneCell_contrat, 0);
+		points = a.getInt(R.styleable.TableDonneCell_points, 0);
+		total_points = a.getInt(R.styleable.TableDonneCell_total_points, 0);
+		score = a.getInt(R.styleable.TableDonneCell_score, 0);
+		role = a.getInt(R.styleable.TableDonneCell_role, 0);
+		petit = a.getInt(R.styleable.TableDonneCell_petit, 0);
+		poignee = a.getInt(R.styleable.TableDonneCell_poignee, 0);
+		chelem = a.getInt(R.styleable.TableDonneCell_chelem, 0);
 		a.recycle();
-
-		// Set up a default TextPaint object
-		mTextPaint = new TextPaint();
-		mTextPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
-		mTextPaint.setTextAlign(Paint.Align.LEFT);
-
+		maj();
+	}
+	
+	private void maj(){
+		
 	}
 
-
-	public String getExampleString() {
-		return mExampleString;
+	public int getContrat() {
+		return contrat;
 	}
 
-	public void setExampleString(String exampleString) {
-		mExampleString = exampleString;
+	public void setContrat(int contrat) {
+		this.contrat = contrat;
+		maj();
 	}
 
-	public int getExampleColor() {
-		return mExampleColor;
+	public int getPoints() {
+		return points;
 	}
 
-	public void setExampleColor(int exampleColor) {
-		mExampleColor = exampleColor;
+	public void setPoints(int points) {
+		this.points = points;
+		maj();
 	}
 
-	public float getExampleDimension() {
-		return mExampleDimension;
+	public int getTotal_Points() {
+		return total_points;
 	}
 
-	public void setExampleDimension(float exampleDimension) {
-		mExampleDimension = exampleDimension;
+	public void setTotal_Points(int points) {
+		this.total_points = points;
+		maj();
+	}
+	public int getScore() {
+		return score;
 	}
 
-	public Drawable getExampleDrawable() {
-		return mExampleDrawable;
+	public void setScore(int score) {
+		this.score = score;
+		maj();
 	}
 
-	public void setExampleDrawable(Drawable exampleDrawable) {
-		mExampleDrawable = exampleDrawable;
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+		maj();
+	}
+
+	public int getPetit() {
+		return petit;
+	}
+
+	public void setPetit(int petit) {
+		this.petit = petit;
+		maj();
+	}
+
+	public int getPoignee() {
+		return poignee;
+}
+
+	public void setPoignee(int poignee) {
+		this.poignee = poignee;
+		maj();
+	}
+
+	public int getChelem() {
+		return chelem;
+	}
+
+	public void setChelem(int chelem) {
+		this.chelem = chelem;
+		maj();
 	}
 }

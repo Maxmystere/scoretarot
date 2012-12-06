@@ -1,9 +1,18 @@
 package fr.pssoftware.scoretarot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ListActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 public class TableDonneActivity extends Activity {
 
@@ -11,7 +20,9 @@ public class TableDonneActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_table_donne);
+		ListView lv = (ListView)findViewById(R.id.td_list);
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
