@@ -20,7 +20,18 @@ public class TableDonneActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_table_donne);
-		ListView lv = (ListView)findViewById(R.id.td_list);
+	    ArrayList<Donne> listD = new ArrayList<Donne>();
+	    listD.add(new Donne());
+	    listD.add(new Donne());
+			
+		//Création et initialisation de l'Adapter pour les personnes
+	    DonneAdapter adapter = new DonneAdapter(this, listD);
+	        
+	    //Récupération du composant ListView
+	    ListView list = (ListView)findViewById(R.id.td_list);
+	        
+	    //Initialisation de la liste avec les données
+	    list.setAdapter(adapter);
 	}
 
 
