@@ -28,5 +28,8 @@
     
 
     <string name="title_activity_table_donne">Tableau des scores</string>
+    <string name="dialog_new_partie">Nouvelle Partie</string>
+    <string name="save">Enregister</string>
+    <string name="cancel">Annuler</string>
 
 </resources>

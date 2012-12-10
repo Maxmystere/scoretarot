@@ -2,14 +2,17 @@ package fr.pssoftware.scoretarot;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
@@ -17,6 +20,7 @@ public class NewPartieActivity extends Activity {
 	private int value=4;
 	private ImageButton plusButton;
 	private ImageButton minusButton;
+	private Button saveButton;
 	private EditText editValue;
 	private AutoCompleteTextView[] Joueurs=new AutoCompleteTextView[6];
 	
@@ -31,7 +35,7 @@ public class NewPartieActivity extends Activity {
 	 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_dropdown_item_1line, listJoueurs);
 	 		
-	 		LinearLayout layout = (LinearLayout) findViewById(R.id.LinearLayout1);
+	 		LinearLayout layout = (LinearLayout) findViewById(R.id.partie_joueurs);
 	 		for (int i=0;i<6;i++) {
 	 			Joueurs[i] = new AutoCompleteTextView(this);
 	 			Joueurs[i].setAdapter(adapter);
@@ -39,12 +43,8 @@ public class NewPartieActivity extends Activity {
 	 			Joueurs[i].setThreshold(1);
 	 			layout.addView(Joueurs[i]);
 	 		};
-			
-	 		masque_joueurs();
-	 		
+				 		
 	 		plusButton = (ImageButton) findViewById(R.id.partie_plus);
-	 		minusButton = (ImageButton) findViewById(R.id.partie_minus);
-	 		editValue = (EditText) findViewById(R.id.partie_nbj);
 	 		plusButton.setOnClickListener(new OnClickListener() {
 	 			@Override
 	 			public void onClick(View v) {
@@ -54,7 +54,10 @@ public class NewPartieActivity extends Activity {
 	 				masque_joueurs();
 	 			}
 	 		});
+	 		
+	 		editValue = (EditText) findViewById(R.id.partie_nbj);
 	 		 
+	 		minusButton = (ImageButton) findViewById(R.id.partie_minus);
 	 		minusButton.setOnClickListener(new OnClickListener() {
 	 			@Override
 	 			public void onClick(View v) {
@@ -64,6 +67,17 @@ public class NewPartieActivity extends Activity {
 	 				masque_joueurs();
 	 			}
 	 		});
+	 		
+	 		saveButton = (Button) findViewById(R.id.partie_save);
+	 		saveButton.setOnClickListener(new OnClickListener() {
+	 			@Override
+	 			public void onClick(View v) {
+	 				//TODO
+	 			    setResult(1);
+	 			    finish();
+	 			    }
+	 		});
+	 		masque_joueurs();
 	}
 	
 	private void masque_joueurs(){
@@ -71,7 +85,7 @@ public class NewPartieActivity extends Activity {
  			Joueurs[i].setVisibility(View.VISIBLE);
  		};
  		for(int i=value;i<6;i++) {
- 			Joueurs[i].setVisibility(View.INVISIBLE);
+ 			Joueurs[i].setVisibility(View.GONE);
  		};
 	}
 }

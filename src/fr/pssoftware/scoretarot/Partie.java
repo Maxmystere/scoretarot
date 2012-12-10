@@ -1,8 +1,8 @@
 package fr.pssoftware.scoretarot;
 
-public class Donne {
+public class Partie {
 
-	public Donne() {
+	public Partie() {
 	}
 
 }

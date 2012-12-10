@@ -1,20 +1,36 @@
 package fr.pssoftware.scoretarot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import android.os.Bundle;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
 public class MainActivity extends ListActivity {
+	private int value=4;
+	private ImageButton plusButton;
+	private ImageButton minusButton;
+	private EditText editValue;
+	private AutoCompleteTextView[] Joueurs=new AutoCompleteTextView[6];
+	static final int NEW_PARTIE_REQUEST = 1;  // The request code
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +72,37 @@ public class MainActivity extends ListActivity {
 		switch (item.getItemId()) {
 		case R.id.menu_add_partie:
 			Intent intent = new Intent(MainActivity.this, NewPartieActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent,NEW_PARTIE_REQUEST);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == NEW_PARTIE_REQUEST) {
+			super.onActivityResult(requestCode, resultCode, data);
+			//TODO
+			Toast.makeText(getApplicationContext(), String.valueOf(resultCode), Toast.LENGTH_SHORT);
+		}
+	}
+	
 	@Override
 	  protected void onListItemClick(ListView l, View v, int position, long id) {
 		  HashMap<String, String> map = (HashMap<String, String>) getListAdapter().getItem(position);
+		  
 			Intent intent = new Intent(MainActivity.this, TableDonneActivity.class);
-			startActivity(intent);
+        startActivity(intent);
 	  }
+	
+	private void masque_joueurs(){
+ 		for (int i=0;i<value;i++) {
+ 			Joueurs[i].setVisibility(View.VISIBLE);
+ 		};
+ 		for(int i=value;i<6;i++) {
+ 			Joueurs[i].setVisibility(View.INVISIBLE);
+ 		};
+	}
 }

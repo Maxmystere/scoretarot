@@ -44,14 +44,12 @@ public class DonneAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		 LinearLayout layoutItem;
-		  //(1) : Réutilisation des layouts
 		  if (convertView == null) {
-		  	//Initialisation de notre item à partir du  layout XML "personne_layout.xml"
 		    layoutItem = (LinearLayout) mInflater.inflate(R.layout.table_donne_line, parent, false);
 		  } else {
 		  	layoutItem = (LinearLayout) convertView;
 		  }
-	return layoutItem;
+		  return layoutItem;
 	}
 
 }
