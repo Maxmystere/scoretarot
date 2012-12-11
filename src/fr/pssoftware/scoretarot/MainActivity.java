@@ -3,6 +3,7 @@ package fr.pssoftware.scoretarot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.os.Bundle;
@@ -25,30 +26,35 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 public class MainActivity extends ListActivity {
-	private int value=4;
-	private ImageButton plusButton;
-	private ImageButton minusButton;
-	private EditText editValue;
-	private AutoCompleteTextView[] Joueurs=new AutoCompleteTextView[6];
 	static final int NEW_PARTIE_REQUEST = 1;  // The request code
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	    ArrayList<Map<String, String>> list = buildData();
+		refresh_data();
+	  }
+		
+	private void refresh_data(){
+		PartieAdapter adapter= new PartieAdapter(getApplicationContext(),PartiesDB.getInstance(getApplicationContext()).getListParties());
+/*	    ArrayList<Map<String, String>> list = buildData();
 	    String[] from = {"partie_nom", "partie_description", "partie_id" };
 	    int[] to = {  R.id.partie_nom, R.id.partie_description,R.id.partie_id };
 
 	    SimpleAdapter adapter = new SimpleAdapter(this.getBaseContext(), list,
-	        R.layout.list_parties, from, to);
+	        R.layout.list_parties, from, to);*/
 	    setListAdapter(adapter);
-	  }
-
-	  private ArrayList<Map<String, String>> buildData() {
+	}
+/*	  private ArrayList<Map<String, String>> buildData() {
 	    ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>();
-	    list.add(putData("Partie du 28 novembre 2012", "4 joueurs : Philippe, Pat Mok, Laurence, Xavier","1"));
-	    list.add(putData("Partie du 23 décembre 2012", "5 joueurs : Nanou, Roxane, Gepetto, Morgane, Philippe","2"));
-	    list.add(putData("Partie du 24 décembre 2012",  "5 joueurs : Nanou, Roxane, Gepetto, Morgane, Philippe","3"));
+	    List<Partie> lp =PartiesDB.getInstance(getApplicationContext()).getListParties();
+	    for (Partie p: lp){
+	    	List<String> lj=p.getListJoueurs();
+	    	String js = "";
+	    	for (String j: lj){
+	    		js += j +",";
+	    	}
+	    	list.add(putData(p.getDescription(),p.getNbJoueurs()+" joueurs : "+js,String.valueOf(p.getId())));
+	    }
 	    return list;
 	  }
 
@@ -59,7 +65,7 @@ public class MainActivity extends ListActivity {
 	    item.put("partie_id", id);
 	    return item;
 	  }
-
+*/
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -84,25 +90,16 @@ public class MainActivity extends ListActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == NEW_PARTIE_REQUEST) {
 			super.onActivityResult(requestCode, resultCode, data);
-			//TODO
-			Toast.makeText(getApplicationContext(), String.valueOf(resultCode), Toast.LENGTH_SHORT);
+			refresh_data();
 		}
 	}
 	
 	@Override
-	  protected void onListItemClick(ListView l, View v, int position, long id) {
-		  HashMap<String, String> map = (HashMap<String, String>) getListAdapter().getItem(position);
-		  
-			Intent intent = new Intent(MainActivity.this, TableDonneActivity.class);
-        startActivity(intent);
-	  }
-	
-	private void masque_joueurs(){
- 		for (int i=0;i<value;i++) {
- 			Joueurs[i].setVisibility(View.VISIBLE);
- 		};
- 		for(int i=value;i<6;i++) {
- 			Joueurs[i].setVisibility(View.INVISIBLE);
- 		};
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		Partie p = (Partie) getListAdapter().getItem(position);
+
+		Intent intent = new Intent(MainActivity.this, TableDonneActivity.class);
+		intent.putExtra("id_partie", p.getId());
+		startActivity(intent);
 	}
 }

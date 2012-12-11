@@ -7,79 +7,14 @@
     android:orientation="vertical"
     tools:context=".TableDonneActivity" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/td_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" 
-     android:background="@android:color/darker_gray">
-    
-        <TextView
-            android:id="@+id/td_tj1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@android:color/background_dark"
-            android:gravity="center"
-            android:text="J1"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/td_tj2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@android:color/background_dark"
-            android:gravity="center"
-            android:text="J2"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/td_tj3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-           android:background="@android:color/background_dark"
-            android:gravity="center"
-            android:text="J3"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/td_tj4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@android:color/background_dark"
-            android:gravity="center"
-            android:text="J4"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-        
-        <TextView
-            android:id="@+id/td_tj5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-           android:background="@android:color/background_dark"
-            android:gravity="center"
-            android:text="J5"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/td_tj6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-           android:background="@android:color/background_dark"
-            android:gravity="center"
-            android:text="J6"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-    
-</LinearLayout>
+    android:background="@android:color/darker_gray"
+    android:orientation="horizontal" >
+    </LinearLayout>
 
 <ListView
     android:id="@+id/td_list"

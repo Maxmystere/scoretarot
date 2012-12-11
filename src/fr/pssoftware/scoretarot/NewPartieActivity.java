@@ -14,7 +14,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class NewPartieActivity extends Activity {
 	private int value=4;
@@ -22,6 +24,7 @@ public class NewPartieActivity extends Activity {
 	private ImageButton minusButton;
 	private Button saveButton;
 	private EditText editValue;
+	private EditText descr;
 	private AutoCompleteTextView[] Joueurs=new AutoCompleteTextView[6];
 	
 	@Override
@@ -29,18 +32,18 @@ public class NewPartieActivity extends Activity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_new_partie);
 	
-			String[] listJoueurs = getResources().getStringArray(R.array.liste_joueurs);
-			Arrays.sort(listJoueurs);
-			 Log.d("BinarySearch (-1 pour non trouvé)"," "+Arrays.binarySearch(listJoueurs, "Geppetto"));
+			String[] listJoueurs = PartiesDB.getInstance(getApplicationContext()).getListTotalJoueurs();
 	 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_dropdown_item_1line, listJoueurs);
 	 		
 	 		LinearLayout layout = (LinearLayout) findViewById(R.id.partie_joueurs);
+	 		descr=(EditText) findViewById(R.id.partie_name);
 	 		for (int i=0;i<6;i++) {
 	 			Joueurs[i] = new AutoCompleteTextView(this);
 	 			Joueurs[i].setAdapter(adapter);
 	 			Joueurs[i].setHint("Joueur "+ (i+1) );
 	 			Joueurs[i].setThreshold(1);
+	 			Joueurs[i].setSingleLine(true);
 	 			layout.addView(Joueurs[i]);
 	 		};
 				 		
@@ -72,10 +75,19 @@ public class NewPartieActivity extends Activity {
 	 		saveButton.setOnClickListener(new OnClickListener() {
 	 			@Override
 	 			public void onClick(View v) {
-	 				//TODO
-	 			    setResult(1);
+	 				Partie p=new Partie(descr.getText().toString(), value);
+	 				List<String> l = new ArrayList<String>();
+	 				for (int i=0; i<value;i++){
+	 					if (Joueurs[i].getText().toString().equals("")){
+	 						Toast.makeText(getApplicationContext(), R.string.joueur_vide, Toast.LENGTH_SHORT).show();
+	 						return;
+	 					}
+	 					l.add(Joueurs[i].getText().toString());
+	 				}
+	 				p.setListJoueurs(l);
+	 			    setResult((int) PartiesDB.getInstance(getApplicationContext()).insertPartie(p));
 	 			    finish();
-	 			    }
+	 			  }
 	 		});
 	 		masque_joueurs();
 	}
