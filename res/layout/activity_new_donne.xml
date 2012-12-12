@@ -1,0 +1,222 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".NewDonneActivity" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Spinner
+                    android:id="@+id/nd_preneur"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:entries="@array/choix_joueur"
+                    android:prompt="@string/preneur" />
+
+                <Button
+                    android:id="@+id/nd_save"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:clickable="true"
+                    android:minHeight="24dip"
+                    android:minWidth="72dip"
+                    android:text="@string/save"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nd_lappele"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                    android:visibility="visible"  >
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appele"
+                   android:layout_weight="1"
+                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/nd_appele"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/choix_joueur"
+                    android:prompt="@string/appele" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nd_lmort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" >
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mort"
+                   android:layout_weight="1"
+                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/nd_mort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:entries="@array/choix_joueur"
+                    android:prompt="@string/mort" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contrat"
+                   android:layout_weight="1"
+                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/nd_contrat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/donne_contrats"
+                    android:layout_weight="2"
+                    android:prompt="@string/contrat" />
+
+            </LinearLayout>
+
+		    <LinearLayout
+		        android:id="@+id/nd_attaque_layout"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="1dp"
+		        android:background="#00bb00"
+		        android:orientation="vertical" >
+
+		        <ToggleButton
+		            android:id="@+id/nd_attaque"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:checked="true"
+		            android:clickable="true"
+		            android:textOff="@string/nd_point_defense"
+		            android:textOn="@string/nd_point_attaque" />
+
+		        <LinearLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content" >
+
+		            <EditText
+		                android:id="@+id/nd_points"
+		                android:layout_width="0dp"
+		                android:layout_height="wrap_content"
+		                android:layout_weight="2"
+		                android:ems="10"
+		                android:hint="@string/points"
+		                android:inputType="numberSigned"
+		                android:singleLine="true" />
+
+		            <EditText
+		                android:id="@+id/nd_bouts"
+		                android:layout_width="0dp"
+		                android:layout_height="wrap_content"
+		                android:layout_weight="1"
+		                android:ems="10"
+		                android:hint="@string/oudlers"
+		                android:inputType="number|numberSigned"
+		                android:singleLine="true" />
+
+		        </LinearLayout>
+
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" >
+
+		        <TextView
+		            android:id="@+id/textView1"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+		            android:text="@string/petit"
+		            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+		        <Spinner
+		            android:id="@+id/nd_petit"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="2"
+		            android:entries="@array/l_petit"
+		            android:prompt="@string/petit" />
+
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" >
+
+		        <TextView
+		            android:id="@+id/textView2"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+		            android:text="@string/poignee"
+		            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+		        <Spinner
+		            android:id="@+id/nd_poignee"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="2"
+		            android:entries="@array/l_poignee"
+		            android:prompt="@string/poignee" />
+
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" >
+
+		        <TextView
+		            android:id="@+id/textView3"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+		            android:text="@string/chelem"
+		            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+		        <Spinner
+		            android:id="@+id/nd_chelem"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="2"
+		            android:entries="@array/l_chelem"
+		            android:prompt="@string/chelem" />
+
+		    </LinearLayout>
+
+		    		 </LinearLayout>
+ 
+</ScrollView>

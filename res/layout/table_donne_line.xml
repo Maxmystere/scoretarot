@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/darker_gray"
-    android:orientation="horizontal" >
+    android:orientation="horizontal" 
+    xmlns:app="http://schemas.android.com/apk/res/fr.pssoftware.scoretarot">
 
     <fr.pssoftware.scoretarot.TableDonneCell
         android:id="@+id/td_j1"
@@ -31,20 +32,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:visibility="gone" />
 
     <fr.pssoftware.scoretarot.TableDonneCell
         android:id="@+id/td_j5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:visibility="gone" />
 
     <fr.pssoftware.scoretarot.TableDonneCell
         android:id="@+id/td_j6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:visibility="gone" />
 
 </LinearLayout>

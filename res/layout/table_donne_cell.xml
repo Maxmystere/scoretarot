@@ -21,17 +21,16 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="10dp" />
+                android:textSize="10sp" />
             
             <TextView
                 android:id="@+id/tdc_total_points"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="eze"
                 android:layout_weight="1"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="10dp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 
@@ -54,11 +53,12 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/tdc_footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -70,7 +70,7 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="10dp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/tdc_poignee"
@@ -79,7 +79,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="10dp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/tdc_chelem"
@@ -88,7 +88,7 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="10dp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
     </LinearLayout>

@@ -2,8 +2,6 @@ package fr.pssoftware.scoretarot;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -15,10 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NewPartieActivity extends Activity {
+	private ScoreTarotDB bdd;
 	private int value=4;
 	private ImageButton plusButton;
 	private ImageButton minusButton;
@@ -30,9 +28,10 @@ public class NewPartieActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
+			bdd=ScoreTarotDB.getDB(this);
 			setContentView(R.layout.activity_new_partie);
 	
-			String[] listJoueurs = PartiesDB.getInstance(getApplicationContext()).getListTotalJoueurs();
+			String[] listJoueurs = bdd.getListTotalJoueurs();
 	 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_dropdown_item_1line, listJoueurs);
 	 		
@@ -85,7 +84,7 @@ public class NewPartieActivity extends Activity {
 	 					l.add(Joueurs[i].getText().toString());
 	 				}
 	 				p.setListJoueurs(l);
-	 			    setResult((int) PartiesDB.getInstance(getApplicationContext()).insertPartie(p));
+	 			    setResult((int) bdd.insertPartie(p));
 	 			    finish();
 	 			  }
 	 		});

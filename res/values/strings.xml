@@ -5,32 +5,60 @@
     <string name="menu_add_partie">Ajouter une partie</string>
     <string name="menu_add_donne">Ajouter une donne</string>
     <string name="menu_add_joueur">Ajouter un joueur</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_new_partie">Nouvelle partie</string>
     <string name="GDH">Date/Heure de la partie</string>
     <string name="NBJ">Nombre de joueurs</string>
 
-    <string-array name="liste_joueurs">
-        <item>Philippe</item>
-        <item>Nanou</item>
-        <item>Gepetto</item>
-        <item>Morgane</item>
-        <item>Roxane</item>
-    </string-array>
-    <string-array name="min_max_joueurs">
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-    </string-array>
-    
-    
 
     <string name="title_activity_table_donne">Tableau des scores</string>
     <string name="dialog_new_partie">Nouvelle Partie</string>
     <string name="save">Enregister</string>
     <string name="cancel">Annuler</string>
     <string name="joueur_vide">Le pseudo de chaque joueur doit être renseigné !</string>
-
+    <string name="title_activity_new_donne">Nouvelle donne</string>
+    <string-array name="donne_contrats">
+        <item >Choisir le contrat</item>
+        <item >Prise</item>
+        <item >Garde</item>
+        <item >Grade-Sans</item>
+        <item >Garde-Contre</item>
+    </string-array>
+    <string name="contrat">Contrat</string>
+    <string name="preneur">Preneur</string>
+    <string name="appele">Appelé</string>
+    <string name="mort">Mort</string>
+    <string name="attaque">Attaque</string>
+    <string name="defense">Défense</string>
+    <string name="petit">Petit au bout</string>
+    <string name="points">Points</string>
+    <string name="oudlers">Bouts</string>
+    <string name="poignee">Poignée</string>
+    <string name="chelem">Chelem</string>
+    <string-array name="l_petit">
+        <item >Choisir le camps</item>
+        <item >Attaque</item>
+        <item >Défense</item>
+    </string-array>
+    <string-array name="l_poignee">
+        <item >Choisir le type de poignee</item>
+        <item >Attaque</item>
+        <item >Défense</item>
+        <item >Double pour l\'attaque</item>
+        <item >Double pour la défense</item>
+        <item >Triple pour l\'attaque</item>
+        <item >Triple pour la défense</item>
+        </string-array>
+    <string-array name="l_chelem">
+        <item >Choisir le type de Chelem</item>
+        <item >Non-annoncé</item>
+        <item >Annoncé</item>
+        <item >Chuté</item>
+        </string-array>
+    <string name="nd_point_attaque">Points pour l\'attaque</string>
+    <string name="nd_point_defense">Points pour la défense</string>
+    <string-array name="choix_joueur">
+        <item >Choisir un joueur</item>
+    </string-array>
+    
 </resources>

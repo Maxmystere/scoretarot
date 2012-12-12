@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class TableDonneCell extends FrameLayout {
@@ -26,6 +27,7 @@ public class TableDonneCell extends FrameLayout {
 	private TextView wScore;
 	private TextView wChelem;
 	private ImageView wImg;
+	private LinearLayout wFooter;
 	
 	public TableDonneCell(Context context) {
 		super(context);
@@ -62,6 +64,7 @@ public class TableDonneCell extends FrameLayout {
 		wPetit=(TextView) findViewById(R.id.tdc_petit);
 		wPoignee=(TextView) findViewById(R.id.tdc_poignee);
 		wChelem=(TextView) findViewById(R.id.tdc_chelem);
+		wFooter=(LinearLayout) findViewById(R.id.tdc_footer);
 		refresh();
 		
 		a.recycle();
@@ -148,6 +151,7 @@ public class TableDonneCell extends FrameLayout {
 			break;
 		}
 		wScore.setText(String.valueOf(score));
+		if (petit==0 && poignee==0 && chelem==0) wFooter.setVisibility(GONE);
 	}
 
 	public int getContrat() {

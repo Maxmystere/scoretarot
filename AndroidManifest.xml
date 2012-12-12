@@ -29,6 +29,10 @@
             android:name="fr.pssoftware.scoretarot.TableDonneActivity"
             android:label="@string/title_activity_table_donne" >
         </activity>
+        <activity
+            android:name="fr.pssoftware.scoretarot.NewDonneActivity"
+            android:label="@string/title_activity_new_donne" >
+        </activity>
     </application>
 
 </manifest>

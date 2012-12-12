@@ -1,34 +1,31 @@
 package fr.pssoftware.scoretarot;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import android.R.color;
-import android.os.Bundle;
 import android.app.Activity;
-import android.app.ListActivity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class TableDonneActivity extends Activity {
+	static final int NEW_DONNE_REQUEST = 2;  // The request code
+	private ScoreTarotDB bdd;
 	private Partie partie=null;
+	private ListView list;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		bdd=ScoreTarotDB.getDB(this);
 		setContentView(R.layout.activity_table_donne);
 		Bundle b=getIntent().getExtras();
-		partie=PartiesDB.getInstance(getApplicationContext()) .getPartie(b.getLong("id_partie"));
+		partie=bdd.getPartie(b.getLong("id_partie"));
 		
 		LinearLayout header= (LinearLayout) findViewById(R.id.td_header);
 		header.removeAllViewsInLayout();;
@@ -42,22 +39,16 @@ public class TableDonneActivity extends Activity {
 			layoutParam.setMargins(1, 1, 1, 1);
 			header .addView( child , layoutParam );
 		}
-		
-		
-	    ArrayList<Donne> listD = new ArrayList<Donne>();
-	    listD.add(new Donne());
-	    listD.add(new Donne());
 			
-		//Création et initialisation de l'Adapter pour les personnes
-	    DonneAdapter adapter = new DonneAdapter(this, listD);
-	        
-	    //Récupération du composant ListView
-	    ListView list = (ListView)findViewById(R.id.td_list);
-	        
-	    //Initialisation de la liste avec les données
-	    list.setAdapter(adapter);
+	    list = (ListView)findViewById(R.id.td_list);
+	    refresh_data();    
 	}
 
+	private void refresh_data(){
+	    List<Donne> listD = partie.getListDonnes();
+	    DonneAdapter adapter = new DonneAdapter(this, listD);
+	    list.setAdapter(adapter);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,4 +57,25 @@ public class TableDonneActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_add_donne:
+			Intent intent = new Intent(TableDonneActivity.this, NewDonneActivity.class);
+			intent.putExtra("id_partie", partie.getId());
+			intent.putExtra("id", 0);
+			startActivityForResult(intent,NEW_DONNE_REQUEST);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == NEW_DONNE_REQUEST) {
+			super.onActivityResult(requestCode, resultCode, data);
+			if (resultCode != RESULT_CANCELED ) refresh_data();
+		}
+	}
 }

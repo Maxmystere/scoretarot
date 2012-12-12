@@ -6,6 +6,7 @@ package fr.pssoftware.scoretarot;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,22 +45,27 @@ public class PartieAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		 LinearLayout layoutItem;
-		  if (convertView == null) {
-		    layoutItem = (LinearLayout) mInflater.inflate(R.layout.list_parties, parent, false);
-		  } else {
-		  	layoutItem = (LinearLayout) convertView;
-		  }
-		  TextView name=(TextView) layoutItem.findViewById(R.id.partie_nom);
-		  TextView descr=(TextView) layoutItem.findViewById(R.id.partie_description);
-		  name.setText(listPartie.get(position).getDescription());
-		  List<String> lj=listPartie.get(position).getListJoueurs();
-		  String d=listPartie.get(position).getNbJoueurs()+" joueurs : ";
-		for (String j:lj){
-			d+=j+", ";
+		LinearLayout layoutItem;
+		if (convertView == null) {
+			layoutItem = (LinearLayout) mInflater.inflate(
+					R.layout.list_parties, parent, false);
+		} else {
+			layoutItem = (LinearLayout) convertView;
 		}
-		  descr.setText(d);
-		  return layoutItem;
+		try{
+			Partie p=listPartie.get(position);
+			TextView name = (TextView) layoutItem.findViewById(R.id.partie_nom);
+			TextView descr = (TextView) layoutItem.findViewById(R.id.partie_description);
+			name.setText(p.getDescription());
+			List<String> lj = p.getListJoueurs();
+			String d = p.getNbJoueurs() + " joueurs : ";
+			for (String j : lj) {
+				d += j + ", ";
+			}
+			descr.setText(d);
+		}catch (Exception e){
+			Log.e("PartieAdapter",e.getMessage());
+		}
+		return layoutItem;
 	}
-
 }
