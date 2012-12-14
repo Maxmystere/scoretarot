@@ -21,7 +21,7 @@
         <item >Choisir le contrat</item>
         <item >Prise</item>
         <item >Garde</item>
-        <item >Grade-Sans</item>
+        <item >Garde-Sans</item>
         <item >Garde-Contre</item>
     </string-array>
     <string name="contrat">Contrat</string>
@@ -42,12 +42,9 @@
     </string-array>
     <string-array name="l_poignee">
         <item >Choisir le type de poignee</item>
-        <item >Attaque</item>
-        <item >Défense</item>
-        <item >Double pour l\'attaque</item>
-        <item >Double pour la défense</item>
-        <item >Triple pour l\'attaque</item>
-        <item >Triple pour la défense</item>
+        <item >Poignée</item>
+        <item >Double-poignée</item>
+        <item >Triple-poignée</item>
         </string-array>
     <string-array name="l_chelem">
         <item >Choisir le type de Chelem</item>

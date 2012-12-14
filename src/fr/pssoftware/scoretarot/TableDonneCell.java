@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -13,13 +14,14 @@ import android.widget.TextView;
 
 public class TableDonneCell extends FrameLayout {
 	private int contrat=0;
-	private int points=0;
+	private String points="";
 	private int total_points=0;
 	private int score=0;
 	private int role=0;
 	private int petit=0;
 	private int poignee=0;
 	private int chelem=0;
+	private int footerVisibility;
 	private TextView wPoints;
 	private TextView wTotalPoints;
 	private TextView wPetit;
@@ -49,13 +51,14 @@ public class TableDonneCell extends FrameLayout {
 				R.styleable.TableDonneCell, defStyle, 0);
 		LayoutInflater.from(ctx).inflate(R.layout.table_donne_cell, this, true);
 		contrat = a.getInt(R.styleable.TableDonneCell_contrat, 0);
-		points = a.getInt(R.styleable.TableDonneCell_points, 0);
+		points = a.getString(R.styleable.TableDonneCell_points);
 		total_points = a.getInt(R.styleable.TableDonneCell_total_points, 0);
 		score = a.getInt(R.styleable.TableDonneCell_score, 0);
 		role = a.getInt(R.styleable.TableDonneCell_role, 0);
 		petit = a.getInt(R.styleable.TableDonneCell_petit, 0);
 		poignee = a.getInt(R.styleable.TableDonneCell_poignee, 0);
 		chelem = a.getInt(R.styleable.TableDonneCell_chelem, 0);
+		footerVisibility = a.getInt(R.styleable.TableDonneCell_footerVisibility, 0);
 		
 		wImg=(ImageView) findViewById(R.id.tdc_img);
 		wPoints=(TextView) findViewById(R.id.tdc_points);
@@ -77,16 +80,16 @@ public class TableDonneCell extends FrameLayout {
 			tr="00";
 			break;
 		case 1:
-			tr="44";
-			break;
-		case 2:
 			tr="88";
 			break;
+		case 2:
+			tr="66";
+			break;
 		case 3:
-			tr="AA";
+			tr="44";
 			break;
 		case 4:
-			tr="EE";
+			tr="22";
 			break;
 		}
 		if (total_points<0){
@@ -96,9 +99,10 @@ public class TableDonneCell extends FrameLayout {
 		}else{
 			tr="#000000";
 		}
-		this.setBackgroundColor(Color.parseColor(tr));
+		setBackgroundColor(Color.parseColor(tr));
 		wPoints.setText(String.valueOf(points));
 		wTotalPoints.setText(String.valueOf(total_points));
+		wImg.setVisibility(View.VISIBLE);
 		switch (role){
 		case -1:
 			wImg.setImageResource(R.drawable.ic_mort);
@@ -114,62 +118,67 @@ public class TableDonneCell extends FrameLayout {
 			break;
 		}
 		wImg.invalidate();
-		if (petit<0) {
-			wPetit.setText("-1");
-		}else if(petit>0){
+		if (petit==0) {
+			wPetit.setText("");
+		}else if (petit==1) {
 			wPetit.setText("+1");
+		}else if(petit==2){
+			wPetit.setText("-1");
 		}
 		switch(poignee){
-		case -3:
-			wPoignee.setText("-PPP");
-			break;
-		case -2:
-			wPoignee.setText("-PP");
-			break;
-		case -1:
-			wPoignee.setText("-P");
+		case 0:
+			wPoignee.setText("");
 			break;
 		case 1:
-			wPoignee.setText("+P");
+			wPoignee.setText("P");
 			break;
 		case 2:
-			wPoignee.setText("+PP");
+			wPoignee.setText("PP");
 			break;
 		case 3:
-			wPoignee.setText("+PPP");
+			wPoignee.setText("PPP");
 			break;
 		}
 		switch(chelem){
-		case -1:
-			wChelem.setText("-C");
+		case 0:
+			wChelem.setText("");
 			break;
 		case 1:
-			wChelem.setText("+C");
+			wChelem.setText("C");
 			break;
 		case 2:
-			wChelem.setText("+C");
+			wChelem.setText("CA");
+			break;
+		case 3:
+			wChelem.setText("-C");
 			break;
 		}
 		wScore.setText(String.valueOf(score));
-		if (petit==0 && poignee==0 && chelem==0) wFooter.setVisibility(GONE);
+		wFooter.setVisibility(footerVisibility);
 	}
-
+	
+	public void setFooterVisibility(int visible){
+		footerVisibility=visible;
+	}
+	
+	public int getFooterVisibility(){
+		return footerVisibility;
+	}
+	
 	public int getContrat() {
 		return contrat;
 	}
 
 	public void setContrat(int contrat) {
 		this.contrat = contrat;
-		refresh();
 	}
 
-	public int getPoints() {
+	public String getPoints() {
 		return points;
 	}
 
-	public void setPoints(int points) {
+	public void setPoints(String points) {
 		this.points = points;
-		refresh();
 	}
 
 	public int getTotal_Points() {
@@ -178,7 +187,6 @@ public class TableDonneCell extends FrameLayout {
 
 	public void setTotal_Points(int points) {
 		this.total_points = points;
-		refresh();
 	}
 	
 	public int getScore() {
@@ -187,7 +195,6 @@ public class TableDonneCell extends FrameLayout {
 
 	public void setScore(int score) {
 		this.score = score;
-		refresh();
 	}
 
 	public int getRole() {
@@ -196,7 +203,6 @@ public class TableDonneCell extends FrameLayout {
 
 	public void setRole(int role) {
 		this.role = role;
-		refresh();
 	}
 
 	public int getPetit() {
@@ -205,7 +211,6 @@ public class TableDonneCell extends FrameLayout {
 
 	public void setPetit(int petit) {
 		this.petit = petit;
-		refresh();
 	}
 
 	public int getPoignee() {
@@ -214,7 +219,6 @@ public class TableDonneCell extends FrameLayout {
 
 	public void setPoignee(int poignee) {
 		this.poignee = poignee;
-		refresh();
 	}
 
 	public int getChelem() {
@@ -223,6 +227,5 @@ public class TableDonneCell extends FrameLayout {
 
 	public void setChelem(int chelem) {
 		this.chelem = chelem;
-		refresh();
 	}
 }

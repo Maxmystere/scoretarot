@@ -9,9 +9,15 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TableDonneActivity extends Activity {
 	static final int NEW_DONNE_REQUEST = 2;  // The request code
@@ -41,11 +47,31 @@ public class TableDonneActivity extends Activity {
 		}
 			
 	    list = (ListView)findViewById(R.id.td_list);
+	    list.setOnItemClickListener(new OnItemClickListener(){
+		@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				Object o=list.getItemAtPosition(position);
+		         Toast.makeText(getApplicationContext(),o.toString(),Toast.LENGTH_SHORT).show();
+		    }
+	    });
+	    list.setOnItemLongClickListener(new OnItemLongClickListener(){
+		@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				Donne donne=(Donne) list.getItemAtPosition(position);
+					Intent intent = new Intent(TableDonneActivity.this, NewDonneActivity.class);
+					intent.putExtra("id_partie", partie.getId());
+					intent.putExtra("id", donne.getId());
+					startActivityForResult(intent,NEW_DONNE_REQUEST);
+		         return true;
+		    }
+	    });
 	    refresh_data();    
 	}
 
 	private void refresh_data(){
-	    List<Donne> listD = partie.getListDonnes();
+	    List<Donne> listD = bdd.getListDonnes(partie.getId());
 	    DonneAdapter adapter = new DonneAdapter(this, listD);
 	    list.setAdapter(adapter);
 	}

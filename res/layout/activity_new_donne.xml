@@ -40,7 +40,7 @@
                 android:id="@+id/nd_lappele"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                    android:visibility="visible"  >
+                    android:visibility="gone"  >
 
                 <TextView
                     android:id="@+id/textView4"
@@ -64,7 +64,7 @@
                 android:id="@+id/nd_lmort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible" >
+                android:visibility="gone" >
 
                 <TextView
                     android:id="@+id/textView5"

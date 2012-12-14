@@ -1,19 +1,14 @@
 package fr.pssoftware.scoretarot;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.app.Activity;
 import android.graphics.Color;
@@ -21,7 +16,7 @@ import android.graphics.Color;
 public class NewDonneActivity extends Activity {
 	private ScoreTarotDB bdd;
 	private Partie partie=null;
-	private long id;
+	private long id=0;
 	private Spinner preneur;
 	private Spinner appele;
 	private Spinner mort;
@@ -31,8 +26,8 @@ public class NewDonneActivity extends Activity {
 	private Spinner chelem;
 	private Button saveButton;
 	private ToggleButton attaqueButton;
-	private TextView points;
-	private TextView bouts;
+	private EditText points;
+	private EditText bouts;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,27 +61,52 @@ public class NewDonneActivity extends Activity {
  				else findViewById(R.id.nd_attaque_layout).setBackgroundColor(Color.DKGRAY);
   			 }
 		});
-		points = (TextView) findViewById(R.id.nd_points);
-		bouts = (TextView) findViewById(R.id.nd_bouts);
+		points = (EditText) findViewById(R.id.nd_points);
+		bouts = (EditText) findViewById(R.id.nd_bouts);
 		 
  		saveButton = (Button) findViewById(R.id.nd_save);
  		saveButton.setOnClickListener(new OnClickListener() {
  			@Override
  			public void onClick(View v) {
-/* 				Partie p=new Partie(descr.getText().toString(), value);
- 				List<String> l = new ArrayList<String>();
- 				for (int i=0; i<value;i++){
- 					if (Joueurs[i].getText().toString().equals("")){
- 						Toast.makeText(getApplicationContext(), R.string.joueur_vide, Toast.LENGTH_SHORT).show();
- 						return;
- 					}
- 					l.add(Joueurs[i].getText().toString());
- 				}
- 				p.setListJoueurs(l);
- 			    setResult((int) bdd.insertPartie(p));
-*/ 			    finish();
+ 				int po;
+ 				int bo;
+ 				Donne d= new Donne();
+ 				if (id != 0) d.setId(id);
+ 				d.setPartie(partie);
+ 				d.setPreneur(preneur.getSelectedItemPosition());
+ 				if (partie.getNbJoueurs()>4) d.setAppele(appele.getSelectedItemPosition());
+ 				if (partie.getNbJoueurs()>5) d.setMort(mort.getSelectedItemPosition());
+ 				d.setContrat(contrat.getSelectedItemPosition());
+				if (attaqueButton.isChecked()) {
+ 					po=Integer.valueOf(points.getText().toString());
+					bo=Integer.valueOf(bouts.getText().toString());
+				}else{
+ 					po=91-Integer.valueOf(points.getText().toString());
+					bo=3-Integer.valueOf(bouts.getText().toString());
+				}
+ 				d.setPoints(po);
+ 				d.setBouts(bo);
+ 				d.setPetit(petit.getSelectedItemPosition());
+ 				d.setPoignee(poignee.getSelectedItemPosition());
+ 				d.setChelem(chelem.getSelectedItemPosition());
+			    setResult((int) bdd.insertDonne(d));
+ 			    finish();
  			  }
  		});
+ 		if (id !=0) initData();
+	}
+	
+	private void initData(){
+		Donne d=bdd.getDonne(id);
+		preneur.setSelection(d.getPreneur());
+		if (partie.getNbJoueurs()>4) appele.setSelection(d.getAppele());
+		if (partie.getNbJoueurs()>45) mort.setSelection(d.getMort());
+		contrat.setSelection(d.getContrat());
+		points.setText(String.valueOf(d.getPoints()));
+		bouts.setText(String.valueOf(d.getBouts()));
+		petit.setSelection(d.getPetit());
+		poignee.setSelection(d.getPoignee());
+		chelem.setSelection(d.getChelem());
 	}
 
 }

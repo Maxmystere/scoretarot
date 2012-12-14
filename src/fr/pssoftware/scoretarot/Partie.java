@@ -8,14 +8,7 @@ public class Partie {
 	private String description;
 	private int nbJoueurs;
 	private List<String> listJoueurs = new ArrayList<String>();
-	private List<Donne> listDonnes = new ArrayList<Donne>();
 	
-	public List<Donne> getListDonnes() {
-		return listDonnes;
-	}
-	public void setListDonnes(List<Donne> listDonnes) {
-		this.listDonnes = listDonnes;
-	}
 	public List<String> getListJoueurs() {
 		return listJoueurs;
 	}
