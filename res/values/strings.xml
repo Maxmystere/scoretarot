@@ -50,7 +50,8 @@
         <item >Choisir le type de Chelem</item>
         <item >Non-annoncé</item>
         <item >Annoncé</item>
-        <item >Chuté</item>
+        <item >Non réalisé</item>
+        <item >Pour la défense</item>
         </string-array>
     <string name="nd_point_attaque">Points pour l\'attaque</string>
     <string name="nd_point_defense">Points pour la défense</string>

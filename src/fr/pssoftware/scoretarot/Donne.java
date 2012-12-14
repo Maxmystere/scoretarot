@@ -203,6 +203,9 @@ public class Donne {
 		case 3:
 			p-=200;
 			break;
+		case 4:
+			p-=200;
+			break;
 		}
 		switch (partie.getNbJoueurs()){
 		case 6:
@@ -258,7 +261,8 @@ public class Donne {
 		if (poignee == 3) ret+="Triple-poignée\n";
 		if (chelem == 1) ret+="Chelem réalisé\n";
 		if (chelem == 2) ret+="Chelem Annoncé et réalisé\n";
-		if (chelem == 3) ret+="Chelem non réalisé ou pour la défense\n";
+		if (chelem == 3) ret+="Chelem non réalisé\n";
+		if (chelem == 4) ret+="Chelem pour la défense\n";
 		return ret;
 	}
 }

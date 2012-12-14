@@ -152,6 +152,9 @@ public class TableDonneCell extends FrameLayout {
 		case 3:
 			wChelem.setText("-C");
 			break;
+		case 4:
+			wChelem.setText("-C");
+			break;
 		}
 		wScore.setText(String.valueOf(score));
 		wFooter.setVisibility(footerVisibility);
