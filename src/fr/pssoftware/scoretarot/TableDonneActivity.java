@@ -52,7 +52,7 @@ public class TableDonneActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
 				Object o=list.getItemAtPosition(position);
-		         Toast.makeText(getApplicationContext(),o.toString(),Toast.LENGTH_SHORT).show();
+		         Toast.makeText(getApplicationContext(),o.toString(),Toast.LENGTH_LONG).show();
 		    }
 	    });
 	    list.setOnItemLongClickListener(new OnItemLongClickListener(){

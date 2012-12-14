@@ -243,15 +243,22 @@ public class Donne {
 			ret="Garde-Contre ";
 			break;
 		}
-		ret+=getPasse()+"\n";
-		ret+="Points : "+points+"\n";
-		ret+="Bouts : "+bouts+"\n";
-		ret+="Preneur : "+preneur+"\n";
-		ret+="Appele : "+appele+"\n";
-		ret+="Mort : "+mort+"\n";
-		ret+="Petit : "+petit+"\n";
-		ret+="Poignee : "+poignee+"\n";
-		ret+="Chelem : "+chelem+"\n";
+		int pass=getPasse();
+		if (pass<0)ret+="chutée de "+Math.abs(pass)+"\n";
+		else ret+="passée de "+Math.abs(pass)+"\n";
+		ret+="Preneur : "+partie.getListJoueurs().get(preneur)+"\n";
+		ret+="Points marqués : "+points+"\n";
+		ret+="Nombre de bouts : "+bouts+"\n";
+		if (partie.getNbJoueurs()>4) ret+="Appele : "+appele+"\n";
+		if (partie.getNbJoueurs()>45) ret+="Mort : "+mort+"\n";
+		if (petit == 1 )ret+="Petit pour l'attaque\n";
+		if (petit == 2 )ret+="Petit pour la défense\n";
+		if (poignee == 1) ret+="Poignée\n";
+		if (poignee == 2) ret+="Double-poignée\n";
+		if (poignee == 3) ret+="Triple-poignée\n";
+		if (chelem == 1) ret+="Chelem réalisé\n";
+		if (chelem == 2) ret+="Chelem Annoncé et réalisé\n";
+		if (chelem == 3) ret+="Chelem non réalisé ou pour la défense\n";
 		return ret;
 	}
 }
