@@ -92,9 +92,9 @@ public class TableDonneCell extends FrameLayout {
 			tr="22";
 			break;
 		}
-		if (total_points<0){
+		if (total_points<0 && role>0 ){
 			tr="#"+tr+"0000";
-		}else if (total_points>0){
+		}else if (total_points>0 && role>0 ){
 			tr="#00"+tr+"00";
 		}else{
 			tr="#000000";

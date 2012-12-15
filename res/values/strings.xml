@@ -18,7 +18,7 @@
     <string name="joueur_vide">Le pseudo de chaque joueur doit être renseigné !</string>
     <string name="title_activity_new_donne">Nouvelle donne</string>
     <string-array name="donne_contrats">
-        <item >Choisir le contrat</item>
+        <item >Contrat</item>
         <item >Prise</item>
         <item >Garde</item>
         <item >Garde-Sans</item>
@@ -36,25 +36,25 @@
     <string name="poignee">Poignée</string>
     <string name="chelem">Chelem</string>
     <string-array name="l_petit">
-        <item >Choisir le camps</item>
+        <item >Petit</item>
         <item >Attaque</item>
         <item >Défense</item>
     </string-array>
     <string-array name="l_poignee">
-        <item >Choisir le type de poignee</item>
         <item >Poignée</item>
-        <item >Double-poignée</item>
-        <item >Triple-poignée</item>
+        <item >Simple</item>
+        <item >Double</item>
+        <item >Triple</item>
         </string-array>
     <string-array name="l_chelem">
-        <item >Choisir le type de Chelem</item>
+        <item >Chelem</item>
         <item >Non-annoncé</item>
         <item >Annoncé</item>
         <item >Non réalisé</item>
-        <item >Pour la défense</item>
+        <item >Défense</item>
         </string-array>
-    <string name="nd_point_attaque">Points pour l\'attaque</string>
-    <string name="nd_point_defense">Points pour la défense</string>
+    <string name="nd_point_attaque">Attaque</string>
+    <string name="nd_point_defense">Défense</string>
     <string-array name="choix_joueur">
         <item >Choisir un joueur</item>
     </string-array>

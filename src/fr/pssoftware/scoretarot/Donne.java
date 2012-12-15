@@ -1,5 +1,7 @@
 package fr.pssoftware.scoretarot;
 
+import android.util.Log;
+
 public class Donne {
 	private long id;
 	private Partie partie;
@@ -155,7 +157,6 @@ public class Donne {
 	}
 	
 	public int getPointJoueur(int joueur){
-		
 		int p=getPasse();
 		p=p+(p<0 ? -25: 25);
 		switch (petit){
@@ -212,8 +213,8 @@ public class Donne {
 			if (joueur==mort) p=0;
 		case 5:
 			if (joueur==preneur && joueur==appele) p*=4;
-			if (joueur==preneur) p*=2;
-			if (joueur==appele) p*=1;
+			else if (joueur==preneur) p*=2;
+			else if (joueur==appele) p*=1;
 			else p*=-1;
 			break;
 		case 4:
@@ -225,6 +226,7 @@ public class Donne {
 			else p*=-1;
 			break;
 		}
+		Log.d("Donne","Joueur "+joueur+" : "+p);
 		return p;
 	}
 	
