@@ -2,15 +2,16 @@ package fr.pssoftware.scoretarot;
 
 import java.util.List;
 
-import android.app.Activity;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -19,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TableDonneActivity extends Activity {
+public class TableDonneActivity extends SherlockActivity {
 	static final int NEW_DONNE_REQUEST = 2;  // The request code
 	private ScoreTarotDB bdd;
 	private Partie partie=null;
@@ -30,6 +31,8 @@ public class TableDonneActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		bdd=ScoreTarotDB.getDB(this);
 		setContentView(R.layout.activity_table_donne);
+	    ActionBar actionBar = getSupportActionBar();
+	    actionBar.setDisplayHomeAsUpEnabled(true);
 		Bundle b=getIntent().getExtras();
 		partie=bdd.getPartie(b.getLong("id_partie"));
 		
@@ -79,19 +82,25 @@ public class TableDonneActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_table_donne, menu);
+		getSupportMenuInflater().inflate(R.menu.activity_table_donne, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
 		switch (item.getItemId()) {
 		case R.id.menu_add_donne:
-			Intent intent = new Intent(TableDonneActivity.this, NewDonneActivity.class);
+			intent = new Intent(TableDonneActivity.this, NewDonneActivity.class);
 			intent.putExtra("id_partie", partie.getId());
 			intent.putExtra("id", 0);
 			startActivityForResult(intent,NEW_DONNE_REQUEST);
 			return true;
+		case android.R.id.home:
+            intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

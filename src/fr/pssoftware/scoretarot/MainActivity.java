@@ -1,14 +1,15 @@
 package fr.pssoftware.scoretarot;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.os.Bundle;
-import android.app.ListActivity;
 import android.content.Intent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends SherlockListActivity {
 	static final int NEW_PARTIE_REQUEST = 1;  // The request code
 	private ScoreTarotDB bdd;
 	
@@ -27,7 +28,7 @@ public class MainActivity extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
+		getSupportMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
 
@@ -42,7 +43,6 @@ public class MainActivity extends ListActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

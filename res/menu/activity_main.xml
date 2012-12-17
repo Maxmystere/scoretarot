@@ -1,3 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/menu_add_partie" android:title="@string/menu_add_partie" android:icon="@drawable/ic_menu_add_partie"></item>
+    <item android:id="@+id/menu_add_partie"
+        android:title="@string/menu_add_partie"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_menu_add_partie">
+        
+    </item>
 </menu>

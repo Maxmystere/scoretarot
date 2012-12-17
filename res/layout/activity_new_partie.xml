@@ -6,31 +6,15 @@
     android:orientation="vertical"
     tools:context=".NewPartieActivity" >
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/partie_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:ems="10"
+        android:hint="@string/GDH" >
 
-        <EditText
-            android:id="@+id/partie_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="5"
-            android:ems="10"
-            android:hint="@string/GDH" />
-
-        <Button
-            android:id="@+id/partie_save"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:minHeight="24dp"
-            android:minWidth="72dp"
-            android:text="@string/save"
-            android:textSize="14sp" />
-
-    </LinearLayout>
+        <requestFocus />
+    </EditText>
 
     <LinearLayout
         android:layout_width="match_parent"

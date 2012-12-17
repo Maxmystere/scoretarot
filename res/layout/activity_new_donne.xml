@@ -158,15 +158,6 @@
                 android:prompt="@string/chelem" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/nd_save"
-            android:layout_width="match_parent"
-            android:layout_height="40sp"
-            android:clickable="true"
-            android:gravity="center_horizontal"
-            android:minHeight="32sp"
-            android:text="@string/save"/>
-
     </LinearLayout>
 
 </ScrollView>

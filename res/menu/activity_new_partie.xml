@@ -1,5 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/menu_save_donne"
+    <item android:id="@+id/menu_save_partie"
         android:title="@string/save"
         android:showAsAction="ifRoom"
         android:icon="@drawable/ic_save">
