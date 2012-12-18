@@ -26,6 +26,11 @@ public class DonneAdapter extends BaseAdapter {
 		listDonne=lDonne;
 		mInflater = LayoutInflater.from(context);
 	}
+	
+	public void add(Donne d){
+		listDonne.add(d);
+	}
+	
 	@Override
 	public int getCount() {
 		return listDonne.size();
@@ -56,15 +61,15 @@ public class DonneAdapter extends BaseAdapter {
 		  for (int i=0;i<nbj;i++){
 			  TableDonneCell cell=(TableDonneCell)layoutItem.getChildAt(i);
 			  cell.setVisibility(View.VISIBLE);
-			  cell.setRole(0);
+			  cell.setRole(TableDonneCell.ROLE_DEFENSE);
 			  cell.setPoints("");
 			  cell.setPetit(0);
 			  cell.setPoignee(0);
 			  cell.setChelem(0);
-			  if (nbj==6 && donne.getMort()==i) cell.setRole(-1);
-			  if (nbj==5 && donne.getAppele()==i) cell.setRole(1);
+			  if (nbj==6 && donne.getMort()==i) cell.setRole(TableDonneCell.ROLE_MORT);
+			  if (nbj==5 && donne.getAppele()==i) cell.setRole(TableDonneCell.ROLE_APPELE);
 			  if (donne.getPreneur()==i){
-				  cell.setRole(2);
+				  cell.setRole(TableDonneCell.ROLE_PRENEUR);
 				  cell.setPetit(donne.getPetit());
 				  cell.setPoignee(donne.getPoignee());
 				  cell.setChelem(donne.getChelem());

@@ -11,22 +11,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contrat"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
             <Spinner
                 android:id="@+id/nd_contrat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/donne_contrats"
                 android:prompt="@string/contrat" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:baselineAligned="false" >
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -38,7 +51,6 @@
                     android:id="@+id/nd_preneur"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/choix_joueur"
                     android:prompt="@string/preneur" />
             </LinearLayout>
 
@@ -60,7 +72,6 @@
                     android:id="@+id/nd_appele"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/choix_joueur"
                     android:prompt="@string/appele" />
             </LinearLayout>
 
@@ -82,7 +93,6 @@
                     android:id="@+id/nd_mort"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/choix_joueur"
                     android:prompt="@string/mort" />
             </LinearLayout>
         </LinearLayout>
@@ -102,7 +112,7 @@
                 android:layout_weight="2"
                 android:checked="true"
                 android:clickable="true"
-                 android:textOff="@string/nd_point_defense"
+                android:textOff="@string/nd_point_defense"
                 android:textOn="@string/nd_point_attaque" />
 
             <EditText
@@ -111,53 +121,84 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7sp"
                 android:layout_weight="3"
-                android:gravity="center"
                 android:hint="@string/points"
-                android:inputType="numberSigned"
-                android:singleLine="true" />
+                android:inputType="numberSigned" />
 
             <EditText
                 android:id="@+id/nd_bouts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="7sp"
                 android:layout_weight="2"
-                android:gravity="center"
                 android:hint="@string/oudlers"
-                android:inputType="numberSigned"
-                 android:layout_marginTop="7sp"
-               android:singleLine="true" />
-
+                android:inputType="numberSigned" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:baselineAligned="false" >
 
-            <Spinner
-                android:id="@+id/nd_petit"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:entries="@array/l_petit"
-                android:prompt="@string/petit" />
+                android:layout_weight="1"
+                android:orientation="vertical" >
 
-            <Spinner
-                android:id="@+id/nd_poignee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:entries="@array/l_poignee"
-                android:prompt="@string/poignee" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/petit"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <Spinner
-                android:id="@+id/nd_chelem"
-                android:layout_width="wrap_content"
+                <Spinner
+                    android:id="@+id/nd_petit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/l_petit"
+                    android:prompt="@string/petit" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:entries="@array/l_chelem"
-                android:prompt="@string/chelem" />
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/poignee"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <Spinner
+                    android:id="@+id/nd_poignee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/l_poignee"
+                    android:prompt="@string/poignee" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chelem"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <Spinner
+                    android:id="@+id/nd_chelem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/l_chelem"
+                    android:prompt="@string/chelem" />
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
 
 </ScrollView>

@@ -12,6 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class TableDonneCell extends FrameLayout {
+	public final static int CONTRAT_PASSE=0;
+	public final static int CONTRAT_PRISE=1;
+	public final static int CONTRAT_GARDE=2;
+	public final static int CONTRAT_GARDE_SANS=3;
+	public final static int CONTRAT_GARDE_CONTRE=4;
+	public final static int ROLE_DEFENSE=0;
+	public final static int ROLE_MORT=-1;
+	public final static int ROLE_APPELE=1;
+	public final static int ROLE_PRENEUR=2;
+
 	private int contrat=0;
 	private String points="";
 	private int total_points=0;
@@ -75,25 +85,25 @@ public class TableDonneCell extends FrameLayout {
 	public void refresh(){
 		String tr="";
 		switch(contrat){
-		case 0:
+		case CONTRAT_PASSE:
 			tr="00";
 			break;
-		case 1:
+		case CONTRAT_PRISE:
 			tr="88";
 			break;
-		case 2:
+		case CONTRAT_GARDE:
 			tr="66";
 			break;
-		case 3:
+		case CONTRAT_GARDE_SANS:
 			tr="44";
 			break;
-		case 4:
+		case CONTRAT_GARDE_CONTRE:
 			tr="22";
 			break;
 		}
-		if (total_points<0 && role>0 ){
+		if (total_points<0 && role>ROLE_DEFENSE ){
 			tr="#"+tr+"0000";
-		}else if (total_points>0 && role>0 ){
+		}else if (total_points>0 && role>ROLE_DEFENSE ){
 			tr="#00"+tr+"00";
 		}else{
 			tr="#000000";
@@ -103,16 +113,16 @@ public class TableDonneCell extends FrameLayout {
 		wTotalPoints.setText(String.valueOf(total_points));
 		wImg.setVisibility(View.VISIBLE);
 		switch (role){
-		case -1:
+		case ROLE_MORT:
 			wImg.setImageResource(R.drawable.ic_mort);
 			break;
-		case 0:
+		case ROLE_DEFENSE:
 			wImg.setVisibility(View.INVISIBLE);
 			break;
-		case 1:
+		case ROLE_APPELE:
 			wImg.setImageResource(R.drawable.ic_appele);
 			break;
-		case 2:
+		case ROLE_PRENEUR:
 			wImg.setImageResource(R.drawable.ic_preneur);
 			break;
 		}

@@ -1,8 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_graph" 
+        android:title="@string/menu_graph" 
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_graph">
+    </item>
     <item android:id="@+id/menu_add_donne" 
         android:title="@string/menu_add_donne" 
         android:showAsAction="ifRoom"
         android:icon="@drawable/ic_menu_add_donne">
-        
     </item>
 </menu>

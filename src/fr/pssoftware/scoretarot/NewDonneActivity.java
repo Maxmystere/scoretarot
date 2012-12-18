@@ -75,7 +75,6 @@ public class NewDonneActivity extends SherlockActivity {
 		});
 		points = (EditText) findViewById(R.id.nd_points);
 		bouts = (EditText) findViewById(R.id.nd_bouts);
-
 		if (id != 0)
 			initData();
 	}
