@@ -62,7 +62,7 @@ public class GraphActivity extends SherlockActivity {
 		  
 		graphView.setViewPort(1, 8);  
 		graphView.setScrollable(true);  
-		graphView.setScalable(true);  
+//		graphView.setScalable(true);  
 		graphView.setShowLegend(true);  
 		graphView.setLegendAlign(LegendAlign.TOP); 
 		graphView.setLegendWidth(100);
