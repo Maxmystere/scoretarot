@@ -60,8 +60,8 @@ public class GraphActivity extends SherlockActivity {
 			 graphView.addSeries(s);
 		}
 		  
-		graphView.setViewPort(1, 8);  
-		graphView.setScrollable(true);  
+		graphView.setViewPort(1, num);  
+//		graphView.setScrollable(true);  
 //		graphView.setScalable(true);  
 		graphView.setShowLegend(true);  
 		graphView.setLegendAlign(LegendAlign.TOP); 
