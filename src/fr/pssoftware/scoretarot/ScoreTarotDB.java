@@ -103,6 +103,11 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 		return rowid;
 	}
 	
+	public void deletePartie(long id){
+		bdd.delete(TABLE_PARTIE_JOUEURS, PARTIE_JOUEURS_ID_PARTIE+"=?" , new String[]{String.valueOf(id)});
+		bdd.delete(TABLE_PARTIES, PARTIES_ID+"=?" , new String[]{String.valueOf(id)});
+	}
+	
 	public List<Partie> getListParties(){
 		List<Partie> l= new ArrayList<Partie>();
 		Cursor c = bdd.query( TABLE_PARTIES, new String[] {PARTIES_ID, PARTIES_DESCR, PARTIES_NBJOUEURS },null,null,null,null,null);
@@ -185,6 +190,10 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 		}
 		return ret;
 	}
+	public void deleteDonne(long id){
+		bdd.delete(TABLE_DONNES, DONNES_ID+"=?" , new String[]{String.valueOf(id)});
+	}
+	
 	
 	public List<Donne> getListDonnes(long idPartie){
 		List<Donne> l= new ArrayList<Donne>();

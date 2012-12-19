@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.graphics.Color;
 
@@ -111,24 +112,32 @@ public class NewDonneActivity extends SherlockActivity {
 			if (id != 0)
 				d.setId(id);
 			d.setPartie(partie);
-			d.setPreneur(preneur.getSelectedItemPosition());
-			if (partie.getNbJoueurs() > 4)
-				d.setAppele(appele.getSelectedItemPosition());
-			if (partie.getNbJoueurs() > 5)
-				d.setMort(mort.getSelectedItemPosition());
-			d.setContrat(contrat.getSelectedItemPosition());
-			if (attaqueButton.isChecked()) {
-				po = Integer.valueOf(points.getText().toString());
-				bo = Integer.valueOf(bouts.getText().toString());
-			} else {
-				po = 91 - Integer.valueOf(points.getText().toString());
-				bo = 3 - Integer.valueOf(bouts.getText().toString());
+			if (contrat.getSelectedItemPosition() > 0) {
+				d.setContrat(contrat.getSelectedItemPosition());
+				d.setPreneur(preneur.getSelectedItemPosition());
+				if (partie.getNbJoueurs() > 4)
+					d.setAppele(appele.getSelectedItemPosition());
+				if (partie.getNbJoueurs() > 5){
+					int m=mort.getSelectedItemPosition();
+					if (m==preneur.getSelectedItemPosition() || m==appele.getSelectedItemPosition()){
+						Toast.makeText(this, getString(R.string.mort_preneur), Toast.LENGTH_LONG);
+						return true;
+					}
+					d.setMort(m);
+				}
+				if (attaqueButton.isChecked()) {
+					po = Integer.valueOf(points.getText().toString());
+					bo = Integer.valueOf(bouts.getText().toString());
+				} else {
+					po = 91 - Integer.valueOf(points.getText().toString());
+					bo = 3 - Integer.valueOf(bouts.getText().toString());
+				}
+				d.setPoints(po);
+				d.setBouts(bo);
+				d.setPetit(petit.getSelectedItemPosition());
+				d.setPoignee(poignee.getSelectedItemPosition());
+				d.setChelem(chelem.getSelectedItemPosition());
 			}
-			d.setPoints(po);
-			d.setBouts(bo);
-			d.setPetit(petit.getSelectedItemPosition());
-			d.setPoignee(poignee.getSelectedItemPosition());
-			d.setChelem(chelem.getSelectedItemPosition());
 			setResult((int) bdd.insertDonne(d));
 			finish();
 			return true;

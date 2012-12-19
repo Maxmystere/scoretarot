@@ -33,6 +33,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:baselineAligned="false" >
 
             <LinearLayout
@@ -77,7 +78,7 @@
 
             <LinearLayout
                 android:id="@+id/nd_lmort"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"

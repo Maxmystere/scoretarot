@@ -7,26 +7,31 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class TableDonneActivity extends SherlockActivity {
-	static final int NEW_DONNE_REQUEST = 2; // The request code
+	static final int MOD_DONNE_REQUEST = 2; // The request code
+	static final int ADD_DONNE_REQUEST = 3; // The request code
 	private ScoreTarotDB bdd;
 	private Partie partie = null;
 	private ListView list;
-	DonneAdapter adapter;
-
+	private DonneAdapter adapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,6 +50,7 @@ public class TableDonneActivity extends SherlockActivity {
 			child.setText(j);
 			child.setBackgroundColor(Color.parseColor("#000000"));
 			child.setGravity(Gravity.CENTER);
+			child.setLines(1);
 			LinearLayout.LayoutParams layoutParam = new LinearLayout.LayoutParams(
 					0, LinearLayout.LayoutParams.WRAP_CONTENT);
 			layoutParam.weight = 1;
@@ -53,6 +59,7 @@ public class TableDonneActivity extends SherlockActivity {
 		}
 
 		list = (ListView) findViewById(R.id.td_list);
+		registerForContextMenu(list);
 		list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -62,28 +69,60 @@ public class TableDonneActivity extends SherlockActivity {
 						Toast.LENGTH_LONG).show();
 			}
 		});
-		list.setOnItemLongClickListener(new OnItemLongClickListener() {
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				Donne donne = (Donne) list.getItemAtPosition(position);
-				Intent intent = new Intent(TableDonneActivity.this,
-						NewDonneActivity.class);
-				intent.putExtra("id_partie", partie.getId());
-				intent.putExtra("id", donne.getId());
-				startActivityForResult(intent, NEW_DONNE_REQUEST);
-				return true;
-			}
-		});
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		android.view.MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.activity_donne_context,  menu);
+	}
+
+	public boolean onContextItemSelected(android.view.MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		final Donne d = (Donne) list.getItemAtPosition(info.position);
+		switch (item.getItemId()) {
+		case R.id.menu_donne_edit:
+			Intent intent = new Intent(TableDonneActivity.this,
+					NewDonneActivity.class);
+			intent.putExtra("id_partie", partie.getId());
+			intent.putExtra("id", d.getId());
+			startActivityForResult(intent, MOD_DONNE_REQUEST);
+			return true;
+		case R.id.menu_donne_delete:
+		        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		        adb.setMessage(String.format(getString(R.string.delete_donne),d.getId()));
+		        adb.setTitle(R.string.attention);
+		        adb.setIcon(android.R.drawable.ic_dialog_alert);
+		        adb.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int which) {
+		            	bdd.deleteDonne(d.getId());
+		            	refresh_data();
+		          } });
+		 
+		        adb.setNegativeButton(getString(R.string.cancel), null);
+		        adb.show();			
+			
+			return true;
+		default:
+			return super.onContextItemSelected(item);
+		}
+	}
+	private void refresh_data(){
 		List<Donne> listD = bdd.getListDonnes(partie.getId());
 		adapter = new DonneAdapter(this, listD);
 		list.setAdapter(adapter);
 	}
 	
-
+	public void onResume(){
+		super.onResume();
+		refresh_data();
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getSupportMenuInflater().inflate(R.menu.activity_table_donne, menu);
 		return true;
 	}
@@ -96,7 +135,7 @@ public class TableDonneActivity extends SherlockActivity {
 			intent = new Intent(TableDonneActivity.this, NewDonneActivity.class);
 			intent.putExtra("id_partie", partie.getId());
 			intent.putExtra("id", 0);
-			startActivityForResult(intent, NEW_DONNE_REQUEST);
+			startActivityForResult(intent, ADD_DONNE_REQUEST);
 			return true;
 		case R.id.menu_graph:
 			intent = new Intent(TableDonneActivity.this, GraphActivity.class);
@@ -115,11 +154,13 @@ public class TableDonneActivity extends SherlockActivity {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == NEW_DONNE_REQUEST) {
+		if (requestCode == ADD_DONNE_REQUEST) {
 			super.onActivityResult(requestCode, resultCode, data);
-			if (resultCode != RESULT_CANCELED)
-				adapter.add(bdd.getDonne(resultCode));
+			adapter.add(bdd.getDonne(resultCode));
 			adapter.notifyDataSetChanged();
+		}else if (requestCode == MOD_DONNE_REQUEST) {
+			super.onActivityResult(requestCode, resultCode, data);
+			refresh_data();
 		}
 	}
 

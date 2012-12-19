@@ -309,7 +309,8 @@ abstract public class GraphView extends LinearLayout {
 		// rect
 		paint.setARGB(180, 100, 100, 100);
 		float legendHeight = (shapeSize+5)*graphSeries.size() +5;
-		float lLeft = width-legendWidth - 10;
+//		float lLeft = width-legendWidth - 10;
+		float lLeft = 10;
 		float lTop;
 		switch (legendAlign) {
 		case TOP:

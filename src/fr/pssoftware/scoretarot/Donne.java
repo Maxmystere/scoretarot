@@ -1,6 +1,5 @@
 package fr.pssoftware.scoretarot;
 
-import android.util.Log;
 
 public class Donne {
 	private long id;
@@ -226,7 +225,6 @@ public class Donne {
 			else p*=-1;
 			break;
 		}
-		Log.d("Donne","Joueur "+joueur+" : "+p);
 		return p;
 	}
 	

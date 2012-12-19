@@ -67,7 +67,7 @@ public class DonneAdapter extends BaseAdapter {
 			  cell.setPoignee(0);
 			  cell.setChelem(0);
 			  if (nbj==6 && donne.getMort()==i) cell.setRole(TableDonneCell.ROLE_MORT);
-			  if (nbj==5 && donne.getAppele()==i) cell.setRole(TableDonneCell.ROLE_APPELE);
+			  if (nbj>4 && donne.getAppele()==i) cell.setRole(TableDonneCell.ROLE_APPELE);
 			  if (donne.getPreneur()==i){
 				  cell.setRole(TableDonneCell.ROLE_PRENEUR);
 				  cell.setPetit(donne.getPetit());
@@ -84,7 +84,7 @@ public class DonneAdapter extends BaseAdapter {
 			  else donne.setScore(i,pj);
 			  cell.setScore(donne.getScore(i));
 			  cell.refresh();	
-		  }
+	  }
 		  for (int i=nbj;i<6;i++){
 			  layoutItem.getChildAt(i).setVisibility(View.GONE);
 		  }
