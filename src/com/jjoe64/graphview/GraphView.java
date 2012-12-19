@@ -10,11 +10,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.RectF;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import com.jjoe64.graphview.compatible.ScaleGestureDetector;
 
 /**
  * GraphView is a Android View for creating zoomable and scrollable graphs.
@@ -35,7 +32,6 @@ abstract public class GraphView extends LinearLayout {
 	}
 
 	private class GraphViewContentView extends View {
-		private float lastTouchEventX;
 		private float graphwidth;
 
 		/**
@@ -117,64 +113,7 @@ abstract public class GraphView extends LinearLayout {
 			}
 		}
 
-		private void onMoveGesture(float f) {
-			// view port update
-			if (viewportSize != 0) {
-				viewportStart -= f*viewportSize/graphwidth;
 
-				// minimal and maximal view limit
-				double minX = getMinX(true);
-				double maxX = getMaxX(true);
-				if (viewportStart < minX) {
-					viewportStart = minX;
-				} else if (viewportStart+viewportSize > maxX) {
-					viewportStart = maxX - viewportSize;
-				}
-
-				// labels have to be regenerated
-				horlabels = null;
-				verlabels = null;
-				viewVerLabels.invalidate();
-			}
-			invalidate();
-		}
-
-		/**
-		 * @param event
-		 */
-		@Override
-		public boolean onTouchEvent(MotionEvent event) {
-			if (!isScrollable()) {
-				return super.onTouchEvent(event);
-			}
-
-			boolean handled = false;
-			// first scale
-			if (scalable && scaleDetector != null) {
-				scaleDetector.onTouchEvent(event);
-				handled = scaleDetector.isInProgress();
-			}
-			if (!handled) {
-				// if not scaled, scroll
-				if ((event.getAction() & MotionEvent.ACTION_DOWN) == MotionEvent.ACTION_DOWN) {
-					handled = true;
-				}
-				if ((event.getAction() & MotionEvent.ACTION_UP) == MotionEvent.ACTION_UP) {
-					lastTouchEventX = 0;
-					handled = true;
-				}
-				if ((event.getAction() & MotionEvent.ACTION_MOVE) == MotionEvent.ACTION_MOVE) {
-					if (lastTouchEventX != 0) {
-						onMoveGesture(event.getX() - lastTouchEventX);
-					}
-					lastTouchEventX = event.getX();
-					handled = true;
-				}
-				if (handled)
-					invalidate();
-			}
-			return handled;
-		}
 	}
 
 	/**
@@ -234,12 +173,9 @@ abstract public class GraphView extends LinearLayout {
 	private String[] horlabels;
 	private String[] verlabels;
 	private String title;
-	private boolean scrollable;
 	private double viewportStart;
 	private double viewportSize;
 	private final View viewVerLabels;
-	private ScaleGestureDetector scaleDetector;
-	private boolean scalable;
 	private NumberFormat[] numberformatter = new NumberFormat[2];
 	private final List<GraphViewSeries> graphSeries;
 	private boolean showLegend = false;
@@ -495,10 +431,6 @@ abstract public class GraphView extends LinearLayout {
 		return smallest;
 	}
 
-	public boolean isScrollable() {
-		return scrollable;
-	}
-
 	public boolean isShowLegend() {
 		return showLegend;
 	}
@@ -524,13 +456,6 @@ abstract public class GraphView extends LinearLayout {
 		}
 
 		graphSeries.remove(index);
-	}
-
-	public void scrollToEnd() {
-		if (!scrollable) throw new IllegalStateException("This GraphView is not scrollable.");
-		double max = getMaxX(true);
-		viewportStart = max-viewportSize;
-		redrawAll();
 	}
 
 	/**
@@ -569,54 +494,6 @@ abstract public class GraphView extends LinearLayout {
 		manualYAxis = true;
 	}
 
-	/**
-	 * this forces scrollable = true
-	 * @param scalable
-	 */
-	synchronized public void setScalable(boolean scalable) {
-		this.scalable = scalable;
-		if (scalable == true && scaleDetector == null) {
-			scrollable = true; // automatically forces this
-			scaleDetector = new ScaleGestureDetector(getContext(), new ScaleGestureDetector.SimpleOnScaleGestureListener() {
-				@Override
-				public boolean onScale(ScaleGestureDetector detector) {
-					double center = viewportStart + viewportSize / 2;
-					viewportSize /= detector.getScaleFactor();
-					viewportStart = center - viewportSize / 2;
-
-					// viewportStart must not be < minX
-					double minX = getMinX(true);
-					if (viewportStart < minX) {
-						viewportStart = minX;
-					}
-
-					// viewportStart + viewportSize must not be > maxX
-					double maxX = getMaxX(true);
-					double overlap = viewportStart + viewportSize - maxX;
-					if (overlap > 0) {
-						// scroll left
-						if (viewportStart-overlap > minX) {
-							viewportStart -= overlap;
-						} else {
-							// maximal scale
-							viewportStart = minX;
-							viewportSize = maxX - viewportStart;
-						}
-					}
-					redrawAll();
-					return true;
-				}
-			});
-		}
-	}
-
-	/**
-	 * the user can scroll (horizontal) the graph. This is only useful if you use a viewport {@link #setViewPort(double, double)} which doesn't displays all data.
-	 * @param scrollable
-	 */
-	public void setScrollable(boolean scrollable) {
-		this.scrollable = scrollable;
-	}
 
 	public void setShowLegend(boolean showLegend) {
 		this.showLegend = showLegend;

@@ -64,11 +64,6 @@ public class GraphViewSeries {
 		GraphViewData[] newValues = Arrays.copyOf(values, values.length+1);
 		newValues[values.length] = value;
 		values = newValues;
-		for (GraphView g : graphViews) {
-			if (scrollToEnd) {
-				g.scrollToEnd();
-			}
-		}
 	}
 
 	/**
