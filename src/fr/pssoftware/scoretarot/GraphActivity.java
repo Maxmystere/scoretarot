@@ -14,36 +14,20 @@ import com.jjoe64.graphview.GraphViewSeries.GraphViewStyle;
 import com.jjoe64.graphview.LineGraphView;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnDismissListener;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.Toast;
-import android.widget.ToggleButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class GraphActivity extends SherlockActivity {
 	private ScoreTarotDB bdd;
 	private Partie partie=null;
 	private LinearLayout layout;
-	private Spinner preneur;
-	private Spinner appele;
-	private Spinner mort;
-	private Spinner contrat;
-	private Spinner petit;
-	private Spinner poignee;
-	private Spinner chelem;
-	private ToggleButton attaqueButton;
-	private EditText points;
-	private EditText bouts;
 	private List<GraphViewStyle>  styles;
+	final private static int MODIF_DONNE_DIALOG = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +46,10 @@ public class GraphActivity extends SherlockActivity {
 		Bundle b=getIntent().getExtras();
 		partie=bdd.getPartie(b.getLong("id_partie"));
 		layout = (LinearLayout) findViewById(R.id.graphLayout);  
-		init();
 	}
 	
-	private void init(){
+	protected void onResume(){
+		super.onResume();
 		List<Donne> listDonne=bdd.getListDonnes(partie.getId());
 		int max=0;
 		int num = listDonne.size();
@@ -101,12 +85,13 @@ public class GraphActivity extends SherlockActivity {
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
 		switch (item.getItemId()) {
 		case R.id.menu_add_donne:
-			createDialog(0);
+			showDialog(MODIF_DONNE_DIALOG);
 			return true;
 		case R.id.menu_tableau:
 			finish();
@@ -121,86 +106,34 @@ public class GraphActivity extends SherlockActivity {
 		}
 	}
 
-	private void createDialog(final long id){
-		LayoutInflater factory = LayoutInflater.from(this);
-		final View alertDialogView = factory.inflate(
-				R.layout.activity_new_donne, null);
-		AlertDialog.Builder adb = new AlertDialog.Builder(this);
-		adb.setView(alertDialogView);
-		adb.setTitle(R.string.title_activity_new_donne);
-		adb.setPositiveButton(getString(R.string.save),
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						int po;
-						int bo;
-						Donne d = new Donne();
-						if (id != 0)
-							d.setId(id);
-						d.setPartie(partie);
-						if (contrat.getSelectedItemPosition() > 0) {
-							d.setContrat(contrat.getSelectedItemPosition());
-							d.setPreneur(preneur.getSelectedItemPosition());
-							if (partie.getNbJoueurs() > 4)
-								d.setAppele(appele.getSelectedItemPosition());
-							if (partie.getNbJoueurs() > 5){
-								int m=mort.getSelectedItemPosition();
-								if (m==preneur.getSelectedItemPosition() || m==appele.getSelectedItemPosition()){
-									Toast.makeText(GraphActivity.this, getString(R.string.mort_preneur), Toast.LENGTH_LONG).show();
-									return ;
-								}
-								d.setMort(m);
-							}
-							if (attaqueButton.isChecked()) {
-								po = Integer.valueOf(points.getText().toString());
-								bo = Integer.valueOf(bouts.getText().toString());
-							} else {
-								po = 91 - Integer.valueOf(points.getText().toString());
-								bo = 3 - Integer.valueOf(bouts.getText().toString());
-							}
-							d.setPoints(po);
-							d.setBouts(bo);
-							d.setPetit(petit.getSelectedItemPosition());
-							d.setPoignee(poignee.getSelectedItemPosition());
-							d.setChelem(chelem.getSelectedItemPosition());
-						}
-						bdd.insertDonne(d);
-						init();
-					}
-				});
+	@Override
+	protected Dialog onCreateDialog(int id) {
 
-		adb.setNegativeButton(getString(R.string.cancel), null);
-		
-		String[] listjJoueurs = partie.getListJoueurs().toArray(
-				new String[partie.getListJoueurs().size()]);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, listjJoueurs);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		preneur = (Spinner) alertDialogView.findViewById(R.id.nd_preneur);
-		preneur.setAdapter(adapter);
-		appele = (Spinner) alertDialogView.findViewById(R.id.nd_appele);
-		appele.setAdapter(adapter);
-		if (partie.getNbJoueurs() > 4) alertDialogView.findViewById(R.id.nd_lappele).setVisibility(View.VISIBLE);
-		mort = (Spinner) alertDialogView.findViewById(R.id.nd_mort);
-		mort.setAdapter(adapter);
-		if (partie.getNbJoueurs() == 6) alertDialogView.findViewById(R.id.nd_lmort).setVisibility(View.VISIBLE);
-		contrat = (Spinner) alertDialogView.findViewById(R.id.nd_contrat);
-		contrat.setFocusable(true);
-		contrat.setFocusableInTouchMode(true);
-		contrat.requestFocus();
-		petit = (Spinner) alertDialogView.findViewById(R.id.nd_petit);
-		poignee = (Spinner) alertDialogView.findViewById(R.id.nd_poignee);
-		chelem = (Spinner) alertDialogView.findViewById(R.id.nd_chelem);
-		attaqueButton = (ToggleButton) alertDialogView.findViewById(R.id.nd_attaque);
-		attaqueButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				if (isChecked) alertDialogView.findViewById(R.id.nd_attaque_layout).setBackgroundColor(Color.GREEN);
-				else alertDialogView.findViewById(R.id.nd_attaque_layout).setBackgroundColor(Color.DKGRAY);
-			}
-		});
-		points = (EditText) alertDialogView.findViewById(R.id.nd_points);
-		bouts = (EditText) alertDialogView.findViewById(R.id.nd_bouts);
-		adb.show();
+		AlertDialog dialogDetails = null;
+
+		switch (id) {
+		case MODIF_DONNE_DIALOG:
+			dialogDetails = new DonneDialog(this,partie);
+			break;
+	}
+
+		return dialogDetails;
+	}
+
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) {
+
+		switch (id) {
+		case MODIF_DONNE_DIALOG:
+			DonneDialog dial=(DonneDialog) dialog;
+			dial.setPartie(partie);
+			dial.setOnDismissListener(new OnDismissListener() {
+			    @Override
+			    public void onDismiss(DialogInterface dialog) {
+			        onResume();
+			    }
+			});
+			break;
+		}
 	}
 }
