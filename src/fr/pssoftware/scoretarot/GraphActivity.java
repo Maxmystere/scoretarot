@@ -13,20 +13,48 @@ import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewStyle;
 import com.jjoe64.graphview.LineGraphView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class GraphActivity extends SherlockActivity {
 	private ScoreTarotDB bdd;
 	private Partie partie=null;
 	private LinearLayout layout;
-	static final int ADD_DONNE_REQUEST = 3; // The request code
+	private Spinner preneur;
+	private Spinner appele;
+	private Spinner mort;
+	private Spinner contrat;
+	private Spinner petit;
+	private Spinner poignee;
+	private Spinner chelem;
+	private ToggleButton attaqueButton;
+	private EditText points;
+	private EditText bouts;
+	private List<GraphViewStyle>  styles;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		styles=new ArrayList<GraphViewStyle>();
+		styles.add(new GraphViewStyle(Color.rgb(200, 00, 00),2));
+		styles.add(new GraphViewStyle(Color.rgb(00, 200, 00),2));
+		styles.add(new GraphViewStyle(Color.rgb(00, 00, 200),2));
+		styles.add(new GraphViewStyle(Color.rgb(200, 200, 00),2));
+		styles.add(new GraphViewStyle(Color.rgb(200, 00, 200),2));
+		styles.add(new GraphViewStyle(Color.rgb(00, 200, 200),2));
 		bdd=ScoreTarotDB.getDB(this);
 		setContentView(R.layout.activity_graph);
 	    ActionBar actionBar = getSupportActionBar();
@@ -43,14 +71,7 @@ public class GraphActivity extends SherlockActivity {
 		int num = listDonne.size();
 		int[] sc=new int[partie.getNbJoueurs()];
 		List<String> joueurs=partie.getListJoueurs();
-		List<GraphViewStyle>  styles=new ArrayList<GraphViewStyle>();
-		styles.add(new GraphViewStyle(Color.rgb(200, 00, 00),2));
-		styles.add(new GraphViewStyle(Color.rgb(00, 200, 00),2));
-		styles.add(new GraphViewStyle(Color.rgb(00, 00, 200),2));
-		styles.add(new GraphViewStyle(Color.rgb(200, 200, 00),2));
-		styles.add(new GraphViewStyle(Color.rgb(200, 00, 200),2));
-		styles.add(new GraphViewStyle(Color.rgb(00, 200, 200),2));
-		
+		layout.removeAllViews();
 		LineGraphView graphView = new LineGraphView( this,partie.getDescription());  
 
 		for (int i=0; i<partie.getNbJoueurs();i++){
@@ -85,10 +106,7 @@ public class GraphActivity extends SherlockActivity {
 		Intent intent;
 		switch (item.getItemId()) {
 		case R.id.menu_add_donne:
-			intent = new Intent(GraphActivity.this, NewDonneActivity.class);
-			intent.putExtra("id_partie", partie.getId());
-			intent.putExtra("id", 0);
-			startActivityForResult(intent, ADD_DONNE_REQUEST);
+			createDialog(0);
 			return true;
 		case R.id.menu_tableau:
 			finish();
@@ -103,12 +121,86 @@ public class GraphActivity extends SherlockActivity {
 		}
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == ADD_DONNE_REQUEST) {
-			super.onActivityResult(requestCode, resultCode, data);
-			layout.removeAllViews();
-			init();
-		}
+	private void createDialog(final long id){
+		LayoutInflater factory = LayoutInflater.from(this);
+		final View alertDialogView = factory.inflate(
+				R.layout.activity_new_donne, null);
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		adb.setView(alertDialogView);
+		adb.setTitle(R.string.title_activity_new_donne);
+		adb.setPositiveButton(getString(R.string.save),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						int po;
+						int bo;
+						Donne d = new Donne();
+						if (id != 0)
+							d.setId(id);
+						d.setPartie(partie);
+						if (contrat.getSelectedItemPosition() > 0) {
+							d.setContrat(contrat.getSelectedItemPosition());
+							d.setPreneur(preneur.getSelectedItemPosition());
+							if (partie.getNbJoueurs() > 4)
+								d.setAppele(appele.getSelectedItemPosition());
+							if (partie.getNbJoueurs() > 5){
+								int m=mort.getSelectedItemPosition();
+								if (m==preneur.getSelectedItemPosition() || m==appele.getSelectedItemPosition()){
+									Toast.makeText(GraphActivity.this, getString(R.string.mort_preneur), Toast.LENGTH_LONG).show();
+									return ;
+								}
+								d.setMort(m);
+							}
+							if (attaqueButton.isChecked()) {
+								po = Integer.valueOf(points.getText().toString());
+								bo = Integer.valueOf(bouts.getText().toString());
+							} else {
+								po = 91 - Integer.valueOf(points.getText().toString());
+								bo = 3 - Integer.valueOf(bouts.getText().toString());
+							}
+							d.setPoints(po);
+							d.setBouts(bo);
+							d.setPetit(petit.getSelectedItemPosition());
+							d.setPoignee(poignee.getSelectedItemPosition());
+							d.setChelem(chelem.getSelectedItemPosition());
+						}
+						bdd.insertDonne(d);
+						init();
+					}
+				});
+
+		adb.setNegativeButton(getString(R.string.cancel), null);
+		
+		String[] listjJoueurs = partie.getListJoueurs().toArray(
+				new String[partie.getListJoueurs().size()]);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, listjJoueurs);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		preneur = (Spinner) alertDialogView.findViewById(R.id.nd_preneur);
+		preneur.setAdapter(adapter);
+		appele = (Spinner) alertDialogView.findViewById(R.id.nd_appele);
+		appele.setAdapter(adapter);
+		if (partie.getNbJoueurs() > 4) alertDialogView.findViewById(R.id.nd_lappele).setVisibility(View.VISIBLE);
+		mort = (Spinner) alertDialogView.findViewById(R.id.nd_mort);
+		mort.setAdapter(adapter);
+		if (partie.getNbJoueurs() == 6) alertDialogView.findViewById(R.id.nd_lmort).setVisibility(View.VISIBLE);
+		contrat = (Spinner) alertDialogView.findViewById(R.id.nd_contrat);
+		contrat.setFocusable(true);
+		contrat.setFocusableInTouchMode(true);
+		contrat.requestFocus();
+		petit = (Spinner) alertDialogView.findViewById(R.id.nd_petit);
+		poignee = (Spinner) alertDialogView.findViewById(R.id.nd_poignee);
+		chelem = (Spinner) alertDialogView.findViewById(R.id.nd_chelem);
+		attaqueButton = (ToggleButton) alertDialogView.findViewById(R.id.nd_attaque);
+		attaqueButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if (isChecked) alertDialogView.findViewById(R.id.nd_attaque_layout).setBackgroundColor(Color.GREEN);
+				else alertDialogView.findViewById(R.id.nd_attaque_layout).setBackgroundColor(Color.DKGRAY);
+			}
+		});
+		points = (EditText) alertDialogView.findViewById(R.id.nd_points);
+		bouts = (EditText) alertDialogView.findViewById(R.id.nd_bouts);
+		adb.show();
 	}
 }

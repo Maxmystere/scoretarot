@@ -14,23 +14,38 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class TableDonneActivity extends SherlockActivity {
-	static final int MOD_DONNE_REQUEST = 2; // The request code
-	static final int ADD_DONNE_REQUEST = 3; // The request code
 	private ScoreTarotDB bdd;
 	private Partie partie = null;
 	private ListView list;
 	private DonneAdapter adapter;
+	private Spinner preneur;
+	private Spinner appele;
+	private Spinner mort;
+	private Spinner contrat;
+	private Spinner petit;
+	private Spinner poignee;
+	private Spinner chelem;
+	private ToggleButton attaqueButton;
+	private EditText points;
+	private EditText bouts;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +59,6 @@ public class TableDonneActivity extends SherlockActivity {
 
 		LinearLayout header = (LinearLayout) findViewById(R.id.td_header);
 		header.removeAllViewsInLayout();
-		;
 		for (String j : partie.getListJoueurs()) {
 			TextView child = new TextView(this);
 			child.setText(j);
@@ -85,15 +99,11 @@ public class TableDonneActivity extends SherlockActivity {
 		final Donne d = (Donne) list.getItemAtPosition(info.position);
 		switch (item.getItemId()) {
 		case R.id.menu_donne_edit:
-			Intent intent = new Intent(TableDonneActivity.this,
-					NewDonneActivity.class);
-			intent.putExtra("id_partie", partie.getId());
-			intent.putExtra("id", d.getId());
-			startActivityForResult(intent, MOD_DONNE_REQUEST);
+			createDialog(d.getId(),info.position);
 			return true;
 		case R.id.menu_donne_delete:
 		        AlertDialog.Builder adb = new AlertDialog.Builder(this);
-		        adb.setMessage(String.format(getString(R.string.delete_donne),d.getId()));
+		        adb.setMessage(String.format(getString(R.string.delete_donne),info.position));
 		        adb.setTitle(R.string.attention);
 		        adb.setIcon(android.R.drawable.ic_dialog_alert);
 		        adb.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
@@ -132,10 +142,7 @@ public class TableDonneActivity extends SherlockActivity {
 		Intent intent;
 		switch (item.getItemId()) {
 		case R.id.menu_add_donne:
-			intent = new Intent(TableDonneActivity.this, NewDonneActivity.class);
-			intent.putExtra("id_partie", partie.getId());
-			intent.putExtra("id", 0);
-			startActivityForResult(intent, ADD_DONNE_REQUEST);
+			createDialog(0,0);
 			return true;
 		case R.id.menu_graph:
 			intent = new Intent(TableDonneActivity.this, GraphActivity.class);
@@ -152,16 +159,104 @@ public class TableDonneActivity extends SherlockActivity {
 		}
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == ADD_DONNE_REQUEST) {
-			super.onActivityResult(requestCode, resultCode, data);
-			adapter.add(bdd.getDonne(resultCode));
-			adapter.notifyDataSetChanged();
-		}else if (requestCode == MOD_DONNE_REQUEST) {
-			super.onActivityResult(requestCode, resultCode, data);
-			refresh_data();
-		}
+	private void createDialog(final long id,int position){
+		LayoutInflater factory = LayoutInflater.from(this);
+		final View alertDialogView = factory.inflate(
+				R.layout.activity_new_donne, null);
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		adb.setView(alertDialogView);
+		if (id==0) adb.setTitle(R.string.title_activity_new_donne);
+		else adb.setTitle(String.format(getString(R.string.title_activity_edit_donne),position+1));
+		adb.setPositiveButton(getString(R.string.save),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						int po;
+						int bo;
+						Donne d = new Donne();
+						if (id != 0)
+							d.setId(id);
+						d.setPartie(partie);
+						if (contrat.getSelectedItemPosition() > 0) {
+							d.setContrat(contrat.getSelectedItemPosition());
+							d.setPreneur(preneur.getSelectedItemPosition());
+							if (partie.getNbJoueurs() > 4)
+								d.setAppele(appele.getSelectedItemPosition());
+							if (partie.getNbJoueurs() > 5){
+								int m=mort.getSelectedItemPosition();
+								if (m==preneur.getSelectedItemPosition() || m==appele.getSelectedItemPosition()){
+									Toast.makeText(TableDonneActivity.this, getString(R.string.mort_preneur), Toast.LENGTH_LONG).show();
+									return ;
+								}
+								d.setMort(m);
+							}
+							if (attaqueButton.isChecked()) {
+								po = Integer.valueOf(points.getText().toString());
+								bo = Integer.valueOf(bouts.getText().toString());
+							} else {
+								po = 91 - Integer.valueOf(points.getText().toString());
+								bo = 3 - Integer.valueOf(bouts.getText().toString());
+							}
+							d.setPoints(po);
+							d.setBouts(bo);
+							d.setPetit(petit.getSelectedItemPosition());
+							d.setPoignee(poignee.getSelectedItemPosition());
+							d.setChelem(chelem.getSelectedItemPosition());
+						}
+						bdd.insertDonne(d);
+						refresh_data();
+					}
+				});
+
+		adb.setNegativeButton(getString(R.string.cancel), null);
+		
+		String[] listjJoueurs = partie.getListJoueurs().toArray(
+				new String[partie.getListJoueurs().size()]);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, listjJoueurs);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		preneur = (Spinner) alertDialogView.findViewById(R.id.nd_preneur);
+		preneur.setAdapter(adapter);
+		appele = (Spinner) alertDialogView.findViewById(R.id.nd_appele);
+		appele.setAdapter(adapter);
+		if (partie.getNbJoueurs() > 4) alertDialogView.findViewById(R.id.nd_lappele).setVisibility(View.VISIBLE);
+		mort = (Spinner) alertDialogView.findViewById(R.id.nd_mort);
+		mort.setAdapter(adapter);
+		if (partie.getNbJoueurs() == 6) alertDialogView.findViewById(R.id.nd_lmort).setVisibility(View.VISIBLE);
+		contrat = (Spinner) alertDialogView.findViewById(R.id.nd_contrat);
+		contrat.setFocusable(true);
+		contrat.setFocusableInTouchMode(true);
+		contrat.requestFocus();
+		petit = (Spinner) alertDialogView.findViewById(R.id.nd_petit);
+		poignee = (Spinner) alertDialogView.findViewById(R.id.nd_poignee);
+		chelem = (Spinner) alertDialogView.findViewById(R.id.nd_chelem);
+		attaqueButton = (ToggleButton) alertDialogView.findViewById(R.id.nd_attaque);
+		attaqueButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if (isChecked) alertDialogView.findViewById(R.id.nd_attaque_layout).setBackgroundColor(Color.GREEN);
+				else alertDialogView.findViewById(R.id.nd_attaque_layout).setBackgroundColor(Color.DKGRAY);
+			}
+		});
+		points = (EditText) alertDialogView.findViewById(R.id.nd_points);
+		bouts = (EditText) alertDialogView.findViewById(R.id.nd_bouts);
+		if (id != 0) initData(id);
+		adb.show();
+	}
+
+	private void initData(long id) {
+		Donne d = bdd.getDonne(id);
+		preneur.setSelection(d.getPreneur());
+		if (partie.getNbJoueurs() > 4)
+			appele.setSelection(d.getAppele());
+		if (partie.getNbJoueurs() > 5)
+			mort.setSelection(d.getMort());
+		contrat.setSelection(d.getContrat());
+		points.setText(String.valueOf(d.getPoints()));
+		bouts.setText(String.valueOf(d.getBouts()));
+		petit.setSelection(d.getPetit());
+		poignee.setSelection(d.getPoignee());
+		chelem.setSelection(d.getChelem());
 	}
 
 }

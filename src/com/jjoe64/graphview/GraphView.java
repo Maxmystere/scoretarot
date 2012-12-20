@@ -179,7 +179,7 @@ abstract public class GraphView extends LinearLayout {
 	private NumberFormat[] numberformatter = new NumberFormat[2];
 	private final List<GraphViewSeries> graphSeries;
 	private boolean showLegend = false;
-	private float legendWidth = 120;
+	private float legendWidth = 100;
 	private LegendAlign legendAlign = LegendAlign.MIDDLE;
 	private boolean manualYAxis;
 	private double manualMaxYValue;
@@ -246,7 +246,7 @@ abstract public class GraphView extends LinearLayout {
 		paint.setARGB(180, 100, 100, 100);
 		float legendHeight = (shapeSize+5)*graphSeries.size() +5;
 //		float lLeft = width-legendWidth - 10;
-		float lLeft = 10;
+		float lLeft = 0;
 		float lTop;
 		switch (legendAlign) {
 		case TOP:

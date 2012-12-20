@@ -9,18 +9,17 @@
     <string name="menu_tableau">Tableau</string>
     <string name="title_activity_new_partie">Nouvelle partie</string>
     <string name="GDH">Description de la partie</string>
-    <string name="NBJ">Nombre de joueurs</string>
+    <string name="NBJ">Partie à %s joueurs</string>
     <string name="title_activity_table_donne">Tableau des scores</string>
-    <string name="dialog_new_partie">Nouvelle Partie</string>
     <string name="save">Enregister</string>
     <string name="cancel">Annuler</string>
     <string name="delete">Supprimer</string>
     <string name="edit">Modifier</string>
     <string name="open">Ouvrir</string>
    <string name="ok">OK</string>
-     <string name="joueur_vide">Le pseudo de chaque joueur doit être renseigné !</string>
     <string name="title_activity_new_donne">Nouvelle donne</string>
-
+    <string name="title_activity_edit_donne">Modification donne n°%s</string>
+    
     <string-array name="donne_contrats">
         <item>Passe</item>
         <item>Prise</item>
