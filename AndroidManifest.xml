@@ -23,20 +23,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="fr.pssoftware.scoretarot.NewPartieActivity"
-            android:label="@string/title_activity_new_partie" >
-        </activity>
-        <activity
             android:name="fr.pssoftware.scoretarot.TableDonneActivity"
             android:label="@string/title_activity_table_donne" >
         </activity>
         <activity
-            android:name="fr.pssoftware.scoretarot.NewDonneActivity"
-            android:label="@string/title_activity_new_donne" >
-        </activity>
-        <activity
             android:name="fr.pssoftware.scoretarot.GraphActivity"
             android:label="@string/title_activity_graph" >
+        </activity>
+        <activity
+            android:name="fr.pssoftware.scoretarot.PartieListActivity"
+            android:label="@string/title_partie_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="fr.pssoftware.scoretarot.PartieDetailActivity"
+            android:label="@string/title_partie_detail"
+            android:parentActivityName=".PartieListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PartieListActivity" />
         </activity>
     </application>
 
