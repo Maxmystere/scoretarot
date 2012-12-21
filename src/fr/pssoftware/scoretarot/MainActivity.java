@@ -36,7 +36,7 @@ public class MainActivity extends SherlockListActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);$
+		super.onCreateContextMenu(menu, v, menuInfo);
 		android.view.MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.activity_main_context, menu);
 	}
