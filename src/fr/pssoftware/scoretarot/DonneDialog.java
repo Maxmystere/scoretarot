@@ -82,7 +82,7 @@ public class DonneDialog extends AlertDialog {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	    		LayoutInflater factory = LayoutInflater.from(ctx);
+	    LayoutInflater factory = LayoutInflater.from(ctx);
 		final View alertDialogView = factory.inflate(
 				R.layout.activity_new_donne, null);
 		setView(alertDialogView);
