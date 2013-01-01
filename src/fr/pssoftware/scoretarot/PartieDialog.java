@@ -1,12 +1,14 @@
 package fr.pssoftware.scoretarot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -68,6 +70,8 @@ public class PartieDialog extends AlertDialog {
 		LinearLayout layout = (LinearLayout) alertDialogView
 				.findViewById(R.id.partie_joueurs);
 		descr = (EditText) alertDialogView.findViewById(R.id.partie_name);
+		java.text.DateFormat df= DateFormat.getMediumDateFormat(ctx);
+		descr.setText(df.format(new Date()));
 		lnbj = (TextView) alertDialogView
 				.findViewById(R.id.partie_label_nbj);
 		lnbj.setText(String.format(ctx.getString(R.string.NBJ), 4));

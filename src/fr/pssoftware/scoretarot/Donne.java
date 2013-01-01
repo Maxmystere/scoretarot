@@ -252,8 +252,8 @@ public class Donne {
 		ret+="Preneur : "+partie.getListJoueurs().get(preneur)+"\n";
 		ret+="Points marqués : "+points+"\n";
 		ret+="Nombre de bouts : "+bouts+"\n";
-		if (partie.getNbJoueurs()>4) ret+="Appele : "+appele+"\n";
-		if (partie.getNbJoueurs()>45) ret+="Mort : "+mort+"\n";
+		if (partie.getNbJoueurs()>4) ret+="Appele : "+partie.getListJoueurs().get(appele)+"\n";
+		if (partie.getNbJoueurs()>5) ret+="Mort : "+partie.getListJoueurs().get(mort)+"\n";
 		if (petit == 1 )ret+="Petit pour l'attaque\n";
 		if (petit == 2 )ret+="Petit pour la défense\n";
 		if (poignee == 1) ret+="Poignée\n";

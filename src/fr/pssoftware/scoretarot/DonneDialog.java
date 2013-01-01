@@ -30,6 +30,8 @@ public class DonneDialog extends AlertDialog {
 	private EditText bouts;
 	private Context ctx;
 	private Donne donne=null;
+	final View alertDialogView;
+
 	
 	public Donne getDonne() {
 		return donne;
@@ -60,6 +62,10 @@ public class DonneDialog extends AlertDialog {
 			poignee.setSelection(0);
 			chelem.setSelection(0);
 		}
+		contrat = (Spinner) alertDialogView.findViewById(R.id.nd_contrat);
+		contrat.setFocusable(true);
+		contrat.setFocusableInTouchMode(true);
+		contrat.requestFocus();
 	}
 
 	private Partie partie;
@@ -78,6 +84,9 @@ public class DonneDialog extends AlertDialog {
 		ctx=context;
 		bdd = ScoreTarotDB.getDB(ctx);
 		this.partie=partie;
+	    LayoutInflater factory = LayoutInflater.from(ctx);
+		alertDialogView = factory.inflate(
+				R.layout.activity_new_donne, null);
 	}
 	
 	@Override
@@ -111,10 +120,6 @@ public class DonneDialog extends AlertDialog {
 		mort = (Spinner) alertDialogView.findViewById(R.id.nd_mort);
 		mort.setAdapter(adapter);
 		if (partie.getNbJoueurs() == 6) alertDialogView.findViewById(R.id.nd_lmort).setVisibility(View.VISIBLE);
-		contrat = (Spinner) alertDialogView.findViewById(R.id.nd_contrat);
-		contrat.setFocusable(true);
-		contrat.setFocusableInTouchMode(true);
-		contrat.requestFocus();
 		petit = (Spinner) alertDialogView.findViewById(R.id.nd_petit);
 		poignee = (Spinner) alertDialogView.findViewById(R.id.nd_poignee);
 		chelem = (Spinner) alertDialogView.findViewById(R.id.nd_chelem);
@@ -141,20 +146,14 @@ public class DonneDialog extends AlertDialog {
 						donne = new Donne();
 						donne.setId(0);
 					}
+					if (points.getText().toString() == "") points.setText("0");
+					if (bouts.getText().toString() == "") bouts.setText("0");
 					donne.setPartie(partie);
 					if (contrat.getSelectedItemPosition() > 0) {
 						donne.setContrat(contrat.getSelectedItemPosition());
 						donne.setPreneur(preneur.getSelectedItemPosition());
 						if (partie.getNbJoueurs() > 4)
 							donne.setAppele(appele.getSelectedItemPosition());
-						if (partie.getNbJoueurs() > 5){
-							int m=mort.getSelectedItemPosition();
-							if (m==preneur.getSelectedItemPosition() || m==appele.getSelectedItemPosition()){
-								Toast.makeText(ctx, ctx.getString(R.string.mort_preneur), Toast.LENGTH_LONG).show();
-								return ;
-							}
-							donne.setMort(m);
-						}
 						if (attaqueButton.isChecked()) {
 							po = Integer.valueOf(points.getText().toString());
 							bo = Integer.valueOf(bouts.getText().toString());
@@ -167,6 +166,14 @@ public class DonneDialog extends AlertDialog {
 						donne.setPetit(petit.getSelectedItemPosition());
 						donne.setPoignee(poignee.getSelectedItemPosition());
 						donne.setChelem(chelem.getSelectedItemPosition());
+					}
+					if (partie.getNbJoueurs() > 5){
+						int m=mort.getSelectedItemPosition();
+						if (m==preneur.getSelectedItemPosition() || m==appele.getSelectedItemPosition()){
+							Toast.makeText(ctx, ctx.getString(R.string.mort_preneur), Toast.LENGTH_LONG).show();
+							return ;
+						}
+						donne.setMort(m);
 					}
 					bdd.insertDonne(donne);
 					dismiss();

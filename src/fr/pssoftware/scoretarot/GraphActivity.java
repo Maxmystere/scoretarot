@@ -127,6 +127,7 @@ public class GraphActivity extends SherlockActivity {
 		case MODIF_DONNE_DIALOG:
 			DonneDialog dial=(DonneDialog) dialog;
 			dial.setPartie(partie);
+			dial.setDonne(null);
 			dial.setOnDismissListener(new OnDismissListener() {
 			    @Override
 			    public void onDismiss(DialogInterface dialog) {
