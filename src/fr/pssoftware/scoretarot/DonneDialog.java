@@ -62,7 +62,6 @@ public class DonneDialog extends AlertDialog {
 			poignee.setSelection(0);
 			chelem.setSelection(0);
 		}
-		contrat = (Spinner) alertDialogView.findViewById(R.id.nd_contrat);
 		contrat.setFocusable(true);
 		contrat.setFocusableInTouchMode(true);
 		contrat.requestFocus();
@@ -112,6 +111,7 @@ public class DonneDialog extends AlertDialog {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(ctx,
 				android.R.layout.simple_spinner_item, listjJoueurs);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		contrat = (Spinner) alertDialogView.findViewById(R.id.nd_contrat);
 		preneur = (Spinner) alertDialogView.findViewById(R.id.nd_preneur);
 		preneur.setAdapter(adapter);
 		appele = (Spinner) alertDialogView.findViewById(R.id.nd_appele);
@@ -146,8 +146,8 @@ public class DonneDialog extends AlertDialog {
 						donne = new Donne();
 						donne.setId(0);
 					}
-					if (points.getText().toString() == "") points.setText("0");
-					if (bouts.getText().toString() == "") bouts.setText("0");
+					if (points.getText().toString().isEmpty()) points.setText("0");
+					if (bouts.getText().toString().isEmpty()) bouts.setText("0");
 					donne.setPartie(partie);
 					if (contrat.getSelectedItemPosition() > 0) {
 						donne.setContrat(contrat.getSelectedItemPosition());
