@@ -31,8 +31,8 @@ public class TableDonneActivity extends SherlockActivity {
 	private Partie partie = null;
 	private ListView list;
 	private DonneAdapter adapter;
-	private Donne donne=null;
-	private int item_selected=0;
+	private Donne donne = null;
+	private int item_selected = 0;
 	final private static int MODIF_DONNE_DIALOG = 1;
 
 	@Override
@@ -66,8 +66,11 @@ public class TableDonneActivity extends SherlockActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				Object o = list.getItemAtPosition(position);
-				Toast.makeText(getApplicationContext(), o.toString(),
+				Donne o = (Donne)list.getItemAtPosition(position);
+				Toast.makeText(
+						getApplicationContext(),
+						String.format(getString(R.string.num_donne),
+								(position + 1)) + "\n" + o.toString(getApplicationContext()),
 						Toast.LENGTH_LONG).show();
 			}
 		});
@@ -86,7 +89,7 @@ public class TableDonneActivity extends SherlockActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
 		donne = (Donne) list.getItemAtPosition(info.position);
-		item_selected=info.position+1;
+		item_selected = info.position + 1;
 		switch (item.getItemId()) {
 		case R.id.menu_donne_edit:
 			showDialog(MODIF_DONNE_DIALOG);
@@ -105,7 +108,7 @@ public class TableDonneActivity extends SherlockActivity {
 						}
 					});
 
-			adb.setNegativeButton(getString(R.string.cancel),null);
+			adb.setNegativeButton(getString(R.string.cancel), null);
 			adb.show();
 			return true;
 		default:
@@ -136,7 +139,7 @@ public class TableDonneActivity extends SherlockActivity {
 		Intent intent;
 		switch (item.getItemId()) {
 		case R.id.menu_add_donne:
-			donne=null;
+			donne = null;
 			showDialog(MODIF_DONNE_DIALOG);
 			return true;
 		case R.id.menu_graph:
@@ -154,7 +157,6 @@ public class TableDonneActivity extends SherlockActivity {
 		}
 	}
 
-
 	@Override
 	protected Dialog onCreateDialog(int id) {
 
@@ -162,9 +164,9 @@ public class TableDonneActivity extends SherlockActivity {
 
 		switch (id) {
 		case MODIF_DONNE_DIALOG:
-			dialogDetails = new DonneDialog(this,partie);
+			dialogDetails = new DonneDialog(this, partie);
 			break;
-	}
+		}
 
 		return dialogDetails;
 	}
@@ -174,19 +176,21 @@ public class TableDonneActivity extends SherlockActivity {
 
 		switch (id) {
 		case MODIF_DONNE_DIALOG:
-			DonneDialog dial=(DonneDialog) dialog;
+			DonneDialog dial = (DonneDialog) dialog;
 			dial.setPartie(partie);
-			if (donne != null )
-				dial.setTitle(String.format(getString(R.string.title_activity_edit_donne),item_selected));
+			if (donne != null)
+				dial.setTitle(String.format(
+						getString(R.string.title_activity_edit_donne),
+						item_selected));
 			else
 				dial.setTitle(getString(R.string.title_activity_new_donne));
-				
+
 			dial.setDonne(donne);
 			dial.setOnDismissListener(new OnDismissListener() {
-			    @Override
-			    public void onDismiss(DialogInterface dialog) {
-			       TableDonneActivity.this.onResume();
-			    }
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+					TableDonneActivity.this.onResume();
+				}
 			});
 			break;
 		}

@@ -89,6 +89,7 @@ public class LineGraphView extends GraphView {
 			lastEndX = x;
 		}
 	}
+	
 
 	public boolean getDrawBackground() {
 		return drawBackground;

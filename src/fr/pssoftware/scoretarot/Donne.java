@@ -1,5 +1,8 @@
 package fr.pssoftware.scoretarot;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 
 public class Donne {
 	private long id;
@@ -228,41 +231,21 @@ public class Donne {
 		return p;
 	}
 	
-	public String toString(){
-		String ret="";
-		switch (contrat){
-		case 0:
-			return "Passe";
-		case 1:
-			ret="Prise ";
-			break;
-		case 2:
-			ret="Garde ";
-			break;
-		case 3:
-			ret="Garde-Sans ";
-			break;
-		case 4:
-			ret="Garde-Contre ";
-			break;
-		}
+	public String toString(Context ctx){
+		Resources ress=ctx.getResources();
+		String ret = ress.getStringArray(R.array.donne_contrats)[contrat]+" ";
+		if (contrat==0) return ret;
 		int pass=getPasse();
-		if (pass<0)ret+="chutée de "+Math.abs(pass)+"\n";
-		else ret+="passée de "+Math.abs(pass)+"\n";
-		ret+="Preneur : "+partie.getListJoueurs().get(preneur)+"\n";
-		ret+="Points marqués : "+points+"\n";
-		ret+="Nombre de bouts : "+bouts+"\n";
-		if (partie.getNbJoueurs()>4) ret+="Appele : "+partie.getListJoueurs().get(appele)+"\n";
-		if (partie.getNbJoueurs()>5) ret+="Mort : "+partie.getListJoueurs().get(mort)+"\n";
-		if (petit == 1 )ret+="Petit pour l'attaque\n";
-		if (petit == 2 )ret+="Petit pour la défense\n";
-		if (poignee == 1) ret+="Poignée\n";
-		if (poignee == 2) ret+="Double-poignée\n";
-		if (poignee == 3) ret+="Triple-poignée\n";
-		if (chelem == 1) ret+="Chelem réalisé\n";
-		if (chelem == 2) ret+="Chelem Annoncé et réalisé\n";
-		if (chelem == 3) ret+="Chelem non réalisé\n";
-		if (chelem == 4) ret+="Chelem pour la défense\n";
+		if (pass<0)ret+=String.format(ress.getString(R.string.donne_chutee),Math.abs(pass));
+		else ret+=String.format(ress.getString(R.string.donne_passee),Math.abs(pass));
+		ret+=String.format(ress.getString(R.string.donne_preneur),partie.getListJoueurs().get(preneur));
+		if (partie.getNbJoueurs()>4) ret+=String.format(ress.getString(R.string.donne_appele),partie.getListJoueurs().get(appele));
+		if (partie.getNbJoueurs()>5) ret+=String.format(ress.getString(R.string.donne_mort),partie.getListJoueurs().get(mort));
+		ret+=String.format(ress.getString(R.string.donne_points),Math.abs(points));
+		ret+=String.format(ress.getString(R.string.donne_bouts),Math.abs(bouts));
+		ret+=ress.getStringArray(R.array.donne_petit)[petit];
+		ret+=ress.getStringArray(R.array.donne_poignee)[poignee];
+		ret+=ress.getStringArray(R.array.donne_chelem)[chelem];
 		return ret;
 	}
 }

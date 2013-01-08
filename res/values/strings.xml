@@ -27,7 +27,32 @@
         <item>Garde-Sans</item>
         <item>Garde-Contre</item>
     </string-array>
-
+    <string-array name="donne_petit">
+        <item></item>
+        <item>Petit pour l\'attaque\n</item>
+        <item>Petit pour la défense\n</item>
+    </string-array>
+    <string-array name="donne_poignee">
+        <item></item>
+        <item>Simple-poignée\n</item>
+        <item>Double-poignée\n</item>
+        <item>Triple-poignée\n</item>
+    </string-array>
+    <string-array name="donne_chelem">
+        <item></item>
+        <item>Chelem non-annoncé\n</item>
+        <item>Chelem annoncé\n</item>
+        <item>Chelem non réalisé\n</item>
+        <item>Chelem pour la défense\n</item>
+    </string-array>
+    <string name="donne_preneur">Preneur : %s\n</string>
+    <string name="donne_appele">Appelé : %s\n</string>
+    <string name="donne_mort">Mort : %s\n</string>
+    <string name="donne_passee">Passée de : %d\n</string>
+    <string name="donne_chutee">Chutée de : %d\n</string>
+    <string name="donne_points">Points marqués : %d\n</string>
+   <string name="donne_bouts">Nombre de bouts : %d\n</string>
+    
     <string name="contrat">Contrat</string>
     <string name="preneur">Preneur</string>
     <string name="appele">Appelé</string>
@@ -58,15 +83,15 @@
         <item>Non réalisé</item>
         <item>Défense</item>
     </string-array>
-
+    
     <string name="nd_point_attaque">Attaque</string>
     <string name="nd_point_defense">Défense</string>
     <string name="title_activity_graph">Graphique des scores</string>
     <string name="delete_partie">Faut-il supprimer la partie %s ?</string>
     <string name="delete_donne">Faut-il supprimer la donne %s ?</string>
+    <string name="num_donne">Donne n°%s</string>
+    
     <string name="attention">Attention</string>
     <string name="mort_preneur">En partie à 6 joueurs, le mort ne peut ni prendre, ni être appelé !</string>
-    <string name="title_partie_detail">Partie Detail</string>
-    <string name="title_partie_list">Parties</string>
 
 </resources>

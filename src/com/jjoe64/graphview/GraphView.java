@@ -42,12 +42,12 @@ abstract public class GraphView extends LinearLayout {
 			setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		}
 
+
 		/**
 		 * @param canvas
 		 */
 		@Override
 		protected void onDraw(Canvas canvas) {
-
             paint.setAntiAlias(true);
 
 			// normal
@@ -96,7 +96,6 @@ abstract public class GraphView extends LinearLayout {
 				paint.setColor(Color.WHITE);
 				canvas.drawText(horlabels[i], x, height - 4, paint);
 			}
-
 			paint.setTextAlign(Align.CENTER);
 			canvas.drawText(title, (graphwidth / 2) + horstart, border - 4, paint);
 
@@ -116,6 +115,18 @@ abstract public class GraphView extends LinearLayout {
 
 	}
 
+	public long getXValue(float x){
+		long ret;
+		ret=Math.round((x-viewVerLabels.getWidth())/((getWidth()-viewVerLabels.getWidth()-1)/(getMaxX(false)-getMinX(false))));
+		return ret;
+		
+	}
+
+	public double getYValue(float y){
+		double ret;
+		ret=Math.round(getMaxY()-(y- GraphViewConfig.BORDER)/((getHeight()-2* GraphViewConfig.BORDER)/(getMaxY()-getMinY())));
+		return ret;
+	}
 	/**
 	 * one data set for a graph series
 	 */
