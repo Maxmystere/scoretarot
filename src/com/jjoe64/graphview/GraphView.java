@@ -320,7 +320,7 @@ abstract public class GraphView extends LinearLayout {
 		int numLabels =(int)viewportSize;
 		int maxLabels=(int)(graphwidth/GraphViewConfig.VERTICAL_LABEL_WIDTH);
 		for (int i=1;numLabels>maxLabels;i++){
-			numLabels=(int)(viewportSize/i);
+			if ((int)(viewportSize/i)==(viewportSize/i)) numLabels=(int)(viewportSize/i);
 		}
 		String[] labels = new String[numLabels+1];
 		double min = getMinX(false);
