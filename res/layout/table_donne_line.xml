@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/darker_gray"
-    android:orientation="horizontal" 
-    xmlns:app="http://schemas.android.com/apk/res/fr.pssoftware.scoretarot">
+    android:orientation="horizontal" >
 
     <fr.pssoftware.scoretarot.TableDonneCell
         android:id="@+id/td_j1"

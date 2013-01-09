@@ -27,8 +27,8 @@ import android.widget.LinearLayout;
 abstract public class GraphView extends LinearLayout {
 	static final private class GraphViewConfig {
 		static final float BORDER = 20;
-		static final float VERTICAL_LABEL_WIDTH = 100;
-		static final float HORIZONTAL_LABEL_HEIGHT = 80;
+		static final float VERTICAL_LABEL_WIDTH = 70;
+		static final float HORIZONTAL_LABEL_HEIGHT = 70;
 	}
 
 	private class GraphViewContentView extends View {
@@ -145,12 +145,13 @@ abstract public class GraphView extends LinearLayout {
 	}
 
 	private class VerLabelsView extends View {
+
 		/**
 		 * @param context
 		 */
 		public VerLabelsView(Context context) {
 			super(context);
-			setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 10));
+			setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		}
 
 		/**
@@ -170,12 +171,12 @@ abstract public class GraphView extends LinearLayout {
 			}
 
 			// vertical labels
-			paint.setTextAlign(Align.LEFT);
+			paint.setTextAlign(Align.RIGHT);
 			int vers = verlabels.length - 1;
 			for (int i = 0; i < verlabels.length; i++) {
-				float y = ((graphheight / vers) * i) + border;
+				float y = (float) (((graphheight / vers) * i) + (border*1.25));
 				paint.setColor(Color.WHITE);
-				canvas.drawText(verlabels[i], 0, y, paint);
+				canvas.drawText(verlabels[i], this.getWidth(), y, paint);
 			}
 		}
 	}
@@ -214,8 +215,8 @@ abstract public class GraphView extends LinearLayout {
 		graphSeries = new ArrayList<GraphViewSeries>();
 
 		viewVerLabels = new VerLabelsView(context);
-		addView(viewVerLabels);
-		addView(new GraphViewContentView(context), new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1));
+		addView(viewVerLabels, new LayoutParams(0, LayoutParams.MATCH_PARENT, 1));
+		addView(new GraphViewContentView(context), new LayoutParams(0, LayoutParams.MATCH_PARENT, 9));
 	}
 
 	private GraphViewData[] _values(int idxSeries) {
@@ -315,8 +316,12 @@ abstract public class GraphView extends LinearLayout {
 	}
 
 	private String[] generateHorlabels(float graphwidth) {
-		int numLabels = (int) (graphwidth/GraphViewConfig.VERTICAL_LABEL_WIDTH);
-		numLabels=4*(numLabels/4);
+		if (viewportSize==0) viewportSize=getMaxX(false)-getMinX(false);
+		int numLabels =(int)viewportSize;
+		int maxLabels=(int)(graphwidth/GraphViewConfig.VERTICAL_LABEL_WIDTH);
+		for (int i=1;numLabels>maxLabels;i++){
+			numLabels=(int)(viewportSize/i);
+		}
 		String[] labels = new String[numLabels+1];
 		double min = getMinX(false);
 		double max = getMaxX(false);
@@ -328,6 +333,7 @@ abstract public class GraphView extends LinearLayout {
 
 	synchronized private String[] generateVerlabels(float graphheight) {
 		int numLabels = (int) (graphheight/GraphViewConfig.HORIZONTAL_LABEL_HEIGHT);
+		numLabels=2*(numLabels/2);
 		String[] labels = new String[numLabels+1];
 		double min = getMinY();
 		double max = getMaxY();

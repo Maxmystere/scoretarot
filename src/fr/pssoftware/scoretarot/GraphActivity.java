@@ -102,7 +102,7 @@ public class GraphActivity extends SherlockActivity {
 			 graphView.addSeries(s);
 		}
 		max=100*(1+max/100);  
-		graphView.setViewPort(1, 4*(1+num/4));
+		graphView.setViewPort(1, 2*((1+num)/2));
 		graphView.setShowLegend(true);  
 		graphView.setLegendAlign(LegendAlign.TOP); 
 		graphView.setManualYAxisBounds(max, -max);
