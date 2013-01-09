@@ -7,7 +7,6 @@ import com.actionbarsherlock.view.MenuItem;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnDismissListener;
@@ -20,7 +19,6 @@ import android.widget.ListView;
 public class MainActivity extends SherlockListActivity {
 	private ScoreTarotDB bdd;
 	final private static int MODIF_PARTIE_DIALOG = 4;
-	private static Context ctx=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

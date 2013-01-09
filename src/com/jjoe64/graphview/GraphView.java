@@ -316,6 +316,7 @@ abstract public class GraphView extends LinearLayout {
 
 	private String[] generateHorlabels(float graphwidth) {
 		int numLabels = (int) (graphwidth/GraphViewConfig.VERTICAL_LABEL_WIDTH);
+		numLabels=4*(numLabels/4);
 		String[] labels = new String[numLabels+1];
 		double min = getMinX(false);
 		double max = getMaxX(false);
