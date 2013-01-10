@@ -337,9 +337,9 @@ abstract public class GraphView extends LinearLayout {
 		numLabels=2*(numLabels/2);
 		String[] labels = new String[numLabels+1];
 		double min = getMinY();
-		double max = getMaxY();
+		double pas=(getMaxX(false)-min)/numLabels;
 		for (int i=0; i<=numLabels; i++) {
-			labels[numLabels-i] = formatLabel(min + ((max-min)*i/numLabels), false);
+			labels[numLabels-i] = formatLabel(min + (pas*i), false);
 		}
 		return labels;
 	}
