@@ -1,17 +1,15 @@
 package fr.pssoftware.scoretarot;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.jjoe64.graphview.GraphView.GraphViewData;
-import com.jjoe64.graphview.GraphView.LegendAlign;
-import com.jjoe64.graphview.GraphViewSeries;
-import com.jjoe64.graphview.GraphViewSeries.GraphViewStyle;
-import com.jjoe64.graphview.LineGraphView;
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.chart.PointStyle;
+import org.achartengine.model.SeriesSelection;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -20,93 +18,144 @@ import android.content.Intent;
 import android.content.DialogInterface.OnDismissListener;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnTouchListener;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 public class GraphActivity extends SherlockActivity {
+	public static final String TYPE = "type";
+
+	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
+
+	private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+
+	private GraphicalView mChartView;
+
+	int[] colors = new int[] { Color.BLUE, Color.YELLOW, Color.RED,
+			Color.GREEN, Color.MAGENTA, Color.CYAN };
+
 	private ScoreTarotDB bdd;
-	private Partie partie=null;
-	private LinearLayout layout;
-	private List<GraphViewStyle>  styles;
-	List<Donne> listDonne;
+	private Partie partie = null;
+	private List<Donne> listDonne;
 	final private static int MODIF_DONNE_DIALOG = 1;
-	private int pos=0;
-	Donne donne=null;
-	boolean shortclick=false;
+	private int pos = 0;
+	private Donne donne = null;
+	private XYSeries[] series;
+	private XYSeriesRenderer[] renderer;
+	private int[] sc;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		styles=new ArrayList<GraphViewStyle>();
-		styles.add(new GraphViewStyle(Color.rgb(200, 00, 00),2));
-		styles.add(new GraphViewStyle(Color.rgb(00, 200, 00),2));
-		styles.add(new GraphViewStyle(Color.rgb(00, 00, 200),2));
-		styles.add(new GraphViewStyle(Color.rgb(200, 200, 00),2));
-		styles.add(new GraphViewStyle(Color.rgb(200, 00, 200),2));
-		styles.add(new GraphViewStyle(Color.rgb(00, 200, 200),2));
-		bdd=ScoreTarotDB.getDB(this);
+		mRenderer.setApplyBackgroundColor(true);
+		mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
+		mRenderer.setLabelsTextSize(10);
+		mRenderer.setLegendTextSize(10);
+		mRenderer.setMargins(new int[] { 10, 20, 0, 10 });
+		mRenderer.setFitLegend(true);
+		mRenderer.setPointSize(3);
+		mRenderer.setPanEnabled(false);
+		bdd = ScoreTarotDB.getDB(this);
 		setContentView(R.layout.activity_graph);
-	    ActionBar actionBar = getSupportActionBar();
-	    actionBar.setDisplayHomeAsUpEnabled(true);
-		Bundle b=getIntent().getExtras();
-		partie=bdd.getPartie(b.getLong("id_partie"));
-		layout = (LinearLayout) findViewById(R.id.graphLayout);  
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		Bundle b = getIntent().getExtras();
+		partie = bdd.getPartie(b.getLong("id_partie"));
+
 	}
-	   
-	
-	protected void onResume(){
+
+	@Override
+	protected void onResume() {
 		super.onResume();
-		listDonne=bdd.getListDonnes(partie.getId());
-		int max=0;
-		int num = listDonne.size();
-		int[] sc=new int[partie.getNbJoueurs()];
-		List<String> joueurs=partie.getListJoueurs();
-		layout.removeAllViews();
-		final LineGraphView graphView = new LineGraphView( this,partie.getDescription());  
-		registerForContextMenu(graphView);
-		graphView.setOnTouchListener(new OnTouchListener(){
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				pos=(int) (graphView.getXValue(event.getX()));
-				donne=listDonne.get(pos);
-				if (event.getAction()==MotionEvent.ACTION_UP && shortclick){
-					Toast.makeText(
-							getApplicationContext(),
-							String.format(getString(R.string.num_donne),
-									(pos + 1)) + "\n" + donne.toString(getApplicationContext()),
-							Toast.LENGTH_LONG).show();
-				}else{
-					shortclick=true;
+		if (mChartView == null) {
+			sc = new int[partie.getNbJoueurs()];
+			series = new XYSeries[partie.getNbJoueurs()];
+			renderer = new XYSeriesRenderer[partie.getNbJoueurs()];
+			LinearLayout layout = (LinearLayout) findViewById(R.id.graphLayout);
+			mChartView = ChartFactory.getLineChartView(this, mDataset,
+					mRenderer);
+			mRenderer.setClickEnabled(true);
+			mChartView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
+					if (seriesSelection == null) {
+						Toast.makeText(getApplicationContext(),
+								"If faut toucher un point !",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						pos = (int) (seriesSelection.getPointIndex());
+						donne = listDonne.get(pos);
+						Toast.makeText(
+								getApplicationContext(),
+								String.format(getString(R.string.num_donne),
+										pos + 1)
+										+ "\n"
+										+ donne.toString(getApplicationContext()),
+								Toast.LENGTH_LONG).show();
+					}
 				}
-				return false;
+			});
+			mChartView.setOnLongClickListener(new View.OnLongClickListener() {
+				@Override
+				public boolean onLongClick(View v) {
+					SeriesSelection seriesSelection = mChartView
+							.getCurrentSeriesAndPoint();
+					if (seriesSelection == null) {
+						Toast.makeText(getApplicationContext(),
+								"If faut toucher un point !",
+								Toast.LENGTH_SHORT).show();
+						return true;
+					} else {
+						pos = (int) (seriesSelection.getPointIndex());
+						donne = listDonne.get(pos);
+						registerForContextMenu(v);
+						openContextMenu(v);
+						return true;
+					}
+				}
+			});
+			layout.addView(mChartView, new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+			listDonne = bdd.getListDonnes(partie.getId());
+			List<String> joueurs = partie.getListJoueurs();
+			for (int i = 0; i < partie.getNbJoueurs(); i++) {
+				series[i] = new XYSeries(joueurs.get(i));
+				mDataset.addSeries(series[i]);
+				renderer[i] = new XYSeriesRenderer();
+				mRenderer.addSeriesRenderer(renderer[i]);
+				renderer[i].setPointStyle(PointStyle.CIRCLE);
+				renderer[i].setColor(colors[i]);
+				renderer[i].setFillPoints(true);
+				sc[i] = 0;
+				int j = 1;
+				series[i].clear();
+				for (Donne d : listDonne) {
+					sc[i] += d.getPointJoueur(i);
+					series[i].add(j++, sc[i]);
+				}
 			}
-		});
-
-		for (int i=0; i<partie.getNbJoueurs();i++){
-			GraphViewData[]  data= new GraphViewData[num];
-			GraphViewSeries s;
-			int j=0;
-			sc[i]=0;
-			for(Donne d:listDonne){
-				sc[i]+= d.getPointJoueur(i);
-				if (Math.abs(sc[i]) > max) max=Math.abs(sc[i]);
-				data[j++] = new GraphViewData(j,sc[i]);  
+		} else {
+			for (int i = 0; i < partie.getNbJoueurs(); i++) {
+				sc[i] = 0;
+				int j = 1;
+				series[i].clear();
+				for (Donne d : listDonne) {
+					sc[i] += d.getPointJoueur(i);
+					series[i].add(j++, sc[i]);
+				}
 			}
-			 s = new GraphViewSeries(joueurs.get(i), styles.get(i), data);
-			 graphView.addSeries(s);
+			mChartView.repaint();
 		}
-		max=100*(1+max/100);  
-		graphView.setViewPort(1, 2*((1+num)/2));
-		graphView.setShowLegend(true);  
-		graphView.setLegendAlign(LegendAlign.TOP); 
-		graphView.setManualYAxisBounds(max, -max);
-		layout.addView(graphView);  
 	}
 
 	@Override
@@ -115,7 +164,6 @@ public class GraphActivity extends SherlockActivity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		android.view.MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.activity_donne_context, menu);
-		shortclick=false;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -127,7 +175,7 @@ public class GraphActivity extends SherlockActivity {
 		case R.id.menu_donne_delete:
 			AlertDialog.Builder adb = new AlertDialog.Builder(this);
 			adb.setMessage(String.format(getString(R.string.delete_donne),
-					(pos+1)));
+					(pos + 1)));
 			adb.setTitle(R.string.attention);
 			adb.setIcon(android.R.drawable.ic_dialog_alert);
 			adb.setPositiveButton(getString(R.string.ok),
@@ -135,16 +183,17 @@ public class GraphActivity extends SherlockActivity {
 						public void onClick(DialogInterface dialog, int which) {
 							bdd.deleteDonne(donne.getId());
 							onResume();
-							}
+						}
 					});
 
-			adb.setNegativeButton(getString(R.string.cancel),null);
+			adb.setNegativeButton(getString(R.string.cancel), null);
 			adb.show();
 			return true;
 		default:
 			return super.onContextItemSelected(item);
 		}
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.activity_graph, menu);
@@ -179,9 +228,9 @@ public class GraphActivity extends SherlockActivity {
 
 		switch (id) {
 		case MODIF_DONNE_DIALOG:
-			dialogDetails = new DonneDialog(this,partie);
+			dialogDetails = new DonneDialog(this, partie);
 			break;
-	}
+		}
 
 		return dialogDetails;
 	}
@@ -191,19 +240,21 @@ public class GraphActivity extends SherlockActivity {
 
 		switch (id) {
 		case MODIF_DONNE_DIALOG:
-			DonneDialog dial=(DonneDialog) dialog;
+			DonneDialog dial = (DonneDialog) dialog;
 			dial.setPartie(partie);
-			if (donne != null )
-				dial.setTitle(String.format(getString(R.string.title_activity_edit_donne),(pos+1)));
+			if (donne != null)
+				dial.setTitle(String.format(
+						getString(R.string.title_activity_edit_donne),
+						(pos + 1)));
 			else
 				dial.setTitle(getString(R.string.title_activity_new_donne));
-				
+
 			dial.setDonne(donne);
 			dial.setOnDismissListener(new OnDismissListener() {
-			    @Override
-			    public void onDismiss(DialogInterface dialog) {
-			        onResume();
-			    }
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+					onResume();
+				}
 			});
 			break;
 		}
