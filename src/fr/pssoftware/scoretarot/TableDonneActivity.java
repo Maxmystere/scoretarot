@@ -34,6 +34,7 @@ public class TableDonneActivity extends SherlockActivity {
 	private Donne donne = null;
 	private int item_selected = 0;
 	final private static int MODIF_DONNE_DIALOG = 1;
+	private boolean tri=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class TableDonneActivity extends SherlockActivity {
 				Toast.makeText(
 						getApplicationContext(),
 						String.format(getString(R.string.num_donne),
-								(position + 1)) + "\n" + o.toString(getApplicationContext()),
+								(Math.abs((tri?-1:list.getAdapter().getCount())-position))) + "\n" + o.toString(getApplicationContext()),
 						Toast.LENGTH_LONG).show();
 			}
 		});
@@ -89,7 +90,7 @@ public class TableDonneActivity extends SherlockActivity {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
 		donne = (Donne) list.getItemAtPosition(info.position);
-		item_selected = info.position + 1;
+		item_selected = Math.abs((tri?-1:list.getAdapter().getCount())-info.position);
 		switch (item.getItemId()) {
 		case R.id.menu_donne_edit:
 			showDialog(MODIF_DONNE_DIALOG);
@@ -117,7 +118,7 @@ public class TableDonneActivity extends SherlockActivity {
 	}
 
 	private void refresh_data() {
-		List<Donne> listD = bdd.getListDonnes(partie.getId());
+		List<Donne> listD = bdd.getListDonnes(partie.getId(),(tri?"ASC":"DESC"));
 		adapter = new DonneAdapter(this, listD);
 		list.setAdapter(adapter);
 	}
@@ -138,6 +139,10 @@ public class TableDonneActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
 		switch (item.getItemId()) {
+		case R.id.menu_tri:
+			tri=(!tri);
+			refresh_data();
+			return true;
 		case R.id.menu_add_donne:
 			donne = null;
 			showDialog(MODIF_DONNE_DIALOG);
@@ -189,7 +194,7 @@ public class TableDonneActivity extends SherlockActivity {
 			dial.setOnDismissListener(new OnDismissListener() {
 				@Override
 				public void onDismiss(DialogInterface dialog) {
-					TableDonneActivity.this.onResume();
+					TableDonneActivity.this.refresh_data();
 				}
 			});
 			break;

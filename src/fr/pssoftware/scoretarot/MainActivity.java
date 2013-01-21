@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 public class MainActivity extends SherlockListActivity {
 	private ScoreTarotDB bdd;
+	private boolean tri=false;
 	final private static int MODIF_PARTIE_DIALOG = 4;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class MainActivity extends SherlockListActivity {
 
 	protected void onResume() {
 		super.onResume();
-		PartieAdapter adapter = new PartieAdapter(this, bdd.getListParties());
+		PartieAdapter adapter = new PartieAdapter(this, bdd.getListParties(tri?"ASC":"DESC"));
 		setListAdapter(adapter);
 	}
 
@@ -84,6 +85,10 @@ public class MainActivity extends SherlockListActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.menu_tri:
+			tri=(!tri);
+			onResume();
+			return true;
 		case R.id.menu_add_partie:
 			showDialog(MODIF_PARTIE_DIALOG);
 			return true;

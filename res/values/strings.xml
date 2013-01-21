@@ -4,7 +4,7 @@
     <string name="app_name">Score Tarot</string>
     <string name="menu_add_partie">Ajouter une partie</string>
     <string name="menu_add_donne">Ajouter une donne</string>
-    <string name="menu_add_joueur">Ajouter un joueur</string>
+    <string name="menu_tri">Trier le tableau</string>
     <string name="menu_graph">Graphique</string>
     <string name="menu_tableau">Tableau</string>
     <string name="title_activity_new_partie">Nouvelle partie</string>

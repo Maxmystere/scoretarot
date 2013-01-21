@@ -18,7 +18,6 @@ import android.content.Intent;
 import android.content.DialogInterface.OnDismissListener;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -76,6 +75,7 @@ public class GraphActivity extends SherlockActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		listDonne = bdd.getListDonnes(partie.getId(),"ASC");
 		if (mChartView == null) {
 			sc = new int[partie.getNbJoueurs()];
 			series = new XYSeries[partie.getNbJoueurs()];
@@ -126,7 +126,6 @@ public class GraphActivity extends SherlockActivity {
 			});
 			layout.addView(mChartView, new LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-			listDonne = bdd.getListDonnes(partie.getId());
 			List<String> joueurs = partie.getListJoueurs();
 			for (int i = 0; i < partie.getNbJoueurs(); i++) {
 				series[i] = new XYSeries(joueurs.get(i));
@@ -154,7 +153,7 @@ public class GraphActivity extends SherlockActivity {
 					series[i].add(j++, sc[i]);
 				}
 			}
-			mChartView.repaint();
+			mChartView.invalidate();
 		}
 	}
 
