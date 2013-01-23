@@ -195,16 +195,17 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 	}
 	
 	
-	public List<Donne> getListDonnes(long idPartie, String tri){
+	public List<Donne> getListDonnes(long idPartie, boolean tri){
+		Partie p=getPartie(idPartie);
+		int[] score=new int[p.getNbJoueurs()];
 		List<Donne> l= new ArrayList<Donne>();
 		Cursor c = bdd.query( TABLE_DONNES,
 							new String[] {DONNES_ID, DONNES_ID_PARTIE, DONNES_CONTRAT,DONNES_PRENEUR, DONNES_APPELE,DONNES_MORT,DONNES_POINTS,DONNES_BOUTS,DONNES_PETIT,DONNES_POIGNEE,DONNES_CHELEM},
 							DONNES_ID_PARTIE + "=?",new String[] { String.valueOf(idPartie) },
-							null,null,DONNES_ID + " " +tri);
+							null,null,null);
 		if (c.getCount() > 0) {
 			c.moveToFirst();
 			do {
-				Partie p=getPartie(c.getLong(1));
 				Donne donne = new Donne();
 				donne.setId(c.getLong(0));
 				donne.setPartie(p);
@@ -217,7 +218,12 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 				donne.setPetit(c.getInt(8));
 				donne.setPoignee(c.getInt(9));
 				donne.setChelem(c.getInt(10));
-				l.add(donne);
+				for (int i=0; i<p.getNbJoueurs(); i++){
+					score[i]+=donne.getPointJoueur(i);
+					donne.setScore(i, score[i]);
+				}
+				if (tri) l.add(donne);
+				else l.add(0,donne);
 			} while (c.moveToNext());
 		}
 		//On ferme le cursor

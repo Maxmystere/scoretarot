@@ -118,7 +118,7 @@ public class TableDonneActivity extends SherlockActivity {
 	}
 
 	private void refresh_data() {
-		List<Donne> listD = bdd.getListDonnes(partie.getId(),(tri?"ASC":"DESC"));
+		List<Donne> listD = bdd.getListDonnes(partie.getId(),tri);
 		adapter = new DonneAdapter(this, listD);
 		list.setAdapter(adapter);
 	}

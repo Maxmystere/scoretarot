@@ -3,17 +3,14 @@ package fr.pssoftware.scoretarot;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class DonneDialog extends AlertDialog {
 
@@ -128,20 +125,7 @@ public class DonneDialog extends AlertDialog {
 		petit = (Spinner) alertDialogView.findViewById(R.id.nd_petit);
 		poignee = (Spinner) alertDialogView.findViewById(R.id.nd_poignee);
 		chelem = (Spinner) alertDialogView.findViewById(R.id.nd_chelem);
-		attaqueButton = (ToggleButton) alertDialogView
-				.findViewById(R.id.nd_attaque);
-		attaqueButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				if (isChecked)
-					alertDialogView.findViewById(R.id.nd_attaque_layout)
-							.setBackgroundColor(Color.GREEN);
-				else
-					alertDialogView.findViewById(R.id.nd_attaque_layout)
-							.setBackgroundColor(Color.DKGRAY);
-			}
-		});
+		attaqueButton = (ToggleButton) alertDialogView.findViewById(R.id.nd_attaque);
 		points = (EditText) alertDialogView.findViewById(R.id.nd_points);
 		bouts = (EditText) alertDialogView.findViewById(R.id.nd_bouts);
 		super.onCreate(savedInstanceState);

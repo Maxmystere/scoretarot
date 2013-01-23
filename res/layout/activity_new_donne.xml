@@ -15,25 +15,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/contrat"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/nd_contrat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/donne_contrats"
-                 android:prompt="@string/contrat" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:baselineAligned="false" >
 
@@ -98,19 +79,36 @@
                     android:prompt="@string/mort" />
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contrat"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/nd_contrat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/donne_contrats"
+                 android:prompt="@string/contrat" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/nd_attaque_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00cc00"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:padding="2dp" >
 
             <ToggleButton
                 android:id="@+id/nd_attaque"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_weight="2"
                 android:checked="true"
                 android:clickable="true"
@@ -121,7 +119,6 @@
                 android:id="@+id/nd_points"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7sp"
                 android:layout_weight="3"
                 android:hint="@string/points"
                 android:inputType="numberSigned" />
@@ -130,7 +127,6 @@
                 android:id="@+id/nd_bouts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7sp"
                 android:layout_weight="2"
                 android:hint="@string/oudlers"
                 android:inputType="numberSigned" />
@@ -145,13 +141,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:text="@string/petit"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
                     android:id="@+id/nd_petit"
@@ -165,13 +163,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:text="@string/poignee"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
                     android:id="@+id/nd_poignee"
@@ -185,13 +185,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:text="@string/chelem"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
                     android:id="@+id/nd_chelem"

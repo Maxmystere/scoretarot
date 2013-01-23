@@ -75,7 +75,7 @@ public class GraphActivity extends SherlockActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		listDonne = bdd.getListDonnes(partie.getId(),"ASC");
+		listDonne = bdd.getListDonnes(partie.getId(),true);
 		if (mChartView == null) {
 			sc = new int[partie.getNbJoueurs()];
 			series = new XYSeries[partie.getNbJoueurs()];

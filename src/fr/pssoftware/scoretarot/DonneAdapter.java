@@ -49,7 +49,6 @@ public class DonneAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		 LinearLayout layoutItem;
-		 Donne prec=null;
 		  if (convertView == null) {
 		    layoutItem = (LinearLayout) mInflater.inflate(R.layout.table_donne_line, parent, false);
 		  } else {
@@ -57,7 +56,6 @@ public class DonneAdapter extends BaseAdapter {
 		  }
 		  Donne donne=listDonne.get(position);
 		  int nbj=donne.getPartie().getNbJoueurs();
-		  if (position>0)  prec=listDonne.get(position-1);
 		  for (int i=0;i<nbj;i++){
 			  TableDonneCell cell=(TableDonneCell)layoutItem.getChildAt(i);
 			  cell.setVisibility(View.VISIBLE);
@@ -80,8 +78,6 @@ public class DonneAdapter extends BaseAdapter {
 			  cell.setTotal_Points(pj);
 			  if (donne.getPetit()==0 && donne.getPoignee()==0 && donne.getChelem()==0) cell.setFooterVisibility(View.GONE);
 			  else  cell.setFooterVisibility(View.VISIBLE);
-			  if (prec != null ) donne.setScore(i,prec.getScore(i)+pj);
-			  else donne.setScore(i,pj);
 			  cell.setScore(donne.getScore(i));
 			  cell.refresh();	
 	  }
