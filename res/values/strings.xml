@@ -53,7 +53,7 @@
     <string name="donne_points">Points marqués : %d\n</string>
    <string name="donne_bouts">Nombre de bouts : %d\n</string>
     
-    <string name="contrat">Contrat</string>
+    <string name="contrat">Contrat </string>
     <string name="preneur">Preneur</string>
     <string name="appele">Appelé</string>
     <string name="mort">Mort</string>
@@ -84,8 +84,8 @@
         <item>Défense</item>
     </string-array>
     
-    <string name="nd_point_attaque">Attaque</string>
-    <string name="nd_point_defense">Défense</string>
+    <string name="nd_point_attaque">pour l\'attaque </string>
+    <string name="nd_point_defense">pour la défense </string>
     <string name="title_activity_graph">Graphique des scores</string>
     <string name="delete_partie">Faut-il supprimer la partie %s ?</string>
     <string name="delete_donne">Faut-il supprimer la donne %s ?</string>

@@ -22,6 +22,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical" >
 
                 <TextView
@@ -42,6 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone" >
 
@@ -63,6 +65,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone" >
 
@@ -85,15 +88,17 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+               android:layout_weight="1"
                 android:text="@string/contrat"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner
                 android:id="@+id/nd_contrat"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+               android:layout_weight="3"
                 android:entries="@array/donne_contrats"
                  android:prompt="@string/contrat" />
         </LinearLayout>
@@ -104,16 +109,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="2dp" >
-
-            <ToggleButton
-                android:id="@+id/nd_attaque"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:checked="true"
-                android:clickable="true"
-                android:textOff="@string/nd_point_defense"
-                android:textOn="@string/nd_point_attaque" />
 
             <EditText
                 android:id="@+id/nd_points"
@@ -130,6 +125,17 @@
                 android:layout_weight="2"
                 android:hint="@string/oudlers"
                 android:inputType="numberSigned" />
+
+            <ToggleButton
+                android:id="@+id/nd_attaque"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:checked="true"
+                android:clickable="true"
+                android:textOff="@string/nd_point_defense"
+                android:textOn="@string/nd_point_attaque" />
+
         </LinearLayout>
 
         <LinearLayout
