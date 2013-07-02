@@ -57,11 +57,11 @@ public class GraphActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		mRenderer.setApplyBackgroundColor(true);
 		mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
-		mRenderer.setLabelsTextSize(10);
-		mRenderer.setLegendTextSize(10);
+		mRenderer.setLabelsTextSize(12 * this.getResources().getDisplayMetrics().scaledDensity);
+		mRenderer.setLegendTextSize(12 * this.getResources().getDisplayMetrics().scaledDensity);
 		mRenderer.setMargins(new int[] { 10, 20, 0, 10 });
 		mRenderer.setFitLegend(true);
-		mRenderer.setPointSize(3);
+		mRenderer.setPointSize(3* this.getResources().getDisplayMetrics().scaledDensity );
 		mRenderer.setPanEnabled(false);
 		bdd = ScoreTarotDB.getDB(this);
 		setContentView(R.layout.activity_graph);
