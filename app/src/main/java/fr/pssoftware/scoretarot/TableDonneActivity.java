@@ -2,12 +2,11 @@ package fr.pssoftware.scoretarot;
 
 import java.util.List;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-
+import android.app.Activity;
+import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -26,7 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TableDonneActivity extends SherlockActivity {
+public class TableDonneActivity extends Activity {
 	private ScoreTarotDB bdd;
 	private Partie partie = null;
 	private ListView list;
@@ -41,7 +40,7 @@ public class TableDonneActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		bdd = ScoreTarotDB.getDB(this);
 		setContentView(R.layout.activity_table_donne);
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = this.getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		Bundle b = getIntent().getExtras();
 		partie = bdd.getPartie(b.getLong("id_partie"));
@@ -130,7 +129,7 @@ public class TableDonneActivity extends SherlockActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.activity_table_donne, menu);
+		getMenuInflater().inflate(R.menu.activity_table_donne, menu);
 		return true;
 	}
 

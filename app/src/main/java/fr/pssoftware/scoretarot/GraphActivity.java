@@ -1,5 +1,10 @@
 package fr.pssoftware.scoretarot;
 
+import android.app.Activity;
+import android.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import java.util.List;
 
 import org.achartengine.ChartFactory;
@@ -25,12 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 
-public class GraphActivity extends SherlockActivity {
+public class GraphActivity extends Activity {
 	public static final String TYPE = "type";
 
 	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
@@ -65,7 +66,7 @@ public class GraphActivity extends SherlockActivity {
 		mRenderer.setPanEnabled(false);
 		bdd = ScoreTarotDB.getDB(this);
 		setContentView(R.layout.activity_graph);
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		Bundle b = getIntent().getExtras();
 		partie = bdd.getPartie(b.getLong("id_partie"));
@@ -195,7 +196,7 @@ public class GraphActivity extends SherlockActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.activity_graph, menu);
+		getMenuInflater().inflate(R.menu.activity_graph, menu);
 		return true;
 	}
 

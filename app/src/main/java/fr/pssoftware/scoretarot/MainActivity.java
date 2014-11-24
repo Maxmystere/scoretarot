@@ -1,22 +1,22 @@
 package fr.pssoftware.scoretarot;
 
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-
-import android.os.Bundle;
+import android.app.ListActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnDismissListener;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 
-public class MainActivity extends SherlockListActivity {
+
+public class MainActivity extends ListActivity {
 	private ScoreTarotDB bdd;
 	private boolean tri=false;
 	final private static int MODIF_PARTIE_DIALOG = 4;
@@ -77,7 +77,7 @@ public class MainActivity extends SherlockListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getSupportMenuInflater().inflate(R.menu.activity_main, menu);
+		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
 
