@@ -2,16 +2,10 @@
 <pre-dex-items>
 
     <item
-        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-rc2-97b3351fb1434ab0d1c237855bf23ee9b995f670.jar"
-        jar="/home/seraphin-local/Documents/ScoreTarot/app/libs/achartengine-1.1.0-rc2.jar"
+        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-422b0e1303df3ba8148487f3fdca791ca6bc4da8.jar"
+        jar="/home/seraphin-local/Documents/ScoreTarot/app/libs/achartengine-1.1.0.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="abcc44f100626232dee90d5ef7f0b2a1941508d0"/>
-    <item
-        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/classes-78f880b2c63929b603320f66c34cad74dd540b03.jar"
-        jar="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/exploded-aar/com.actionbarsherlock/actionbarsherlock/4.4.0/classes.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="af64527b748983a75de9c0756e9768b56b240a49"/>
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250"/>
 
 </pre-dex-items>
