@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "fr.pssoftware.scoretarot"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 17
     }
 
@@ -19,6 +19,5 @@ android {
 }
 
 dependencies {
-    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-    compile files('libs/achartengine-1.1.0-rc2.jar')
+    compile files('libs/achartengine-1.1.0.jar')
 }
