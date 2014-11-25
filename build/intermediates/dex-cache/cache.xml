@@ -2,6 +2,7 @@
 <pre-dex-items>
 
     <item
+<<<<<<< HEAD
         dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-rc2-97b3351fb1434ab0d1c237855bf23ee9b995f670.jar"
         jar="/home/seraphin-local/Documents/ScoreTarot/app/libs/achartengine-1.1.0-rc2.jar"
         jumboMode="false"
@@ -13,5 +14,12 @@
         jumboMode="false"
         revision="21.1.1"
         sha1="af64527b748983a75de9c0756e9768b56b240a49"/>
+=======
+        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-422b0e1303df3ba8148487f3fdca791ca6bc4da8.jar"
+        jar="/home/seraphin-local/Documents/ScoreTarot/app/libs/achartengine-1.1.0.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250"/>
+>>>>>>> new
 
 </pre-dex-items>

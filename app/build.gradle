@@ -1,24 +1,34 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        ScoreTarot {
+            keyAlias 'scoretarot'
+            keyPassword '1tqr1+2s'
+            storeFile file('/home/seraphin-local/ownCloud/Android/Keystore/Keystore_Android1')
+            storePassword '1tqr1+2s'
+        }
+    }
     compileSdkVersion 17
     buildToolsVersion "21.1.1"
-
     defaultConfig {
         applicationId "fr.pssoftware.scoretarot"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 17
+        versionCode 20
+        versionName '2.0'
+        signingConfig signingConfigs.ScoreTarot
     }
-
     buildTypes {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-    compile files('libs/achartengine-1.1.0-rc2.jar')
+    compile files('libs/achartengine-1.1.0.jar')
 }
