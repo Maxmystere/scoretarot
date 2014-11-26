@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/darker_gray"
+    android:orientation="horizontal" >
+
+    <fr.pssoftware.scoretarot.TableDonneCell
+        android:id="@+id/td_j1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1" />
+
+    <fr.pssoftware.scoretarot.TableDonneCell
+        android:id="@+id/td_j2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1" />
+
+    <fr.pssoftware.scoretarot.TableDonneCell
+        android:id="@+id/td_j3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1" />
+
+    <fr.pssoftware.scoretarot.TableDonneCell
+        android:id="@+id/td_j4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <fr.pssoftware.scoretarot.TableDonneCell
+        android:id="@+id/td_j5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <fr.pssoftware.scoretarot.TableDonneCell
+        android:id="@+id/td_j6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+</LinearLayout>
