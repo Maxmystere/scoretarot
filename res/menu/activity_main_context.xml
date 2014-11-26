@@ -1,6 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/menu_partie_open" 
-        android:title="@string/open"></item>
-    <item android:id="@+id/menu_partie_delete"
-        android:title="@string/delete"></item>
-</menu>
