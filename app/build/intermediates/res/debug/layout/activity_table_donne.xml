@@ -1,12 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/TableDonne"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".TableDonneActivity" >
 
-<LinearLayout
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id" />
+
+    <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/td_header"
     android:layout_width="match_parent"
@@ -15,7 +24,7 @@
     android:orientation="horizontal" >
     </LinearLayout>
 
-<ListView
+    <ListView
     android:id="@+id/td_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,7 +32,6 @@
     android:divider="#00000000"
     android:dividerHeight="0dp"
     android:longClickable="true" >
-
 </ListView>
-  
+
  </LinearLayout><!-- From: file:/home/seraphin-local/Documents/ScoreTarot/app/src/main/res/layout/activity_table_donne.xml -->
