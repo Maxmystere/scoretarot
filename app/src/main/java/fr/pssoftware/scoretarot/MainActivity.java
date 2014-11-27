@@ -16,6 +16,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 
 
+
+
 public class MainActivity extends ListActivity {
 	private ScoreTarotDB bdd;
 	private boolean tri=false;
@@ -25,11 +27,11 @@ public class MainActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		registerForContextMenu(getListView());
 		bdd = ScoreTarotDB.getDB(this);
-	}
+ 	}
 
 	protected void onResume() {
 		super.onResume();
-		PartieAdapter adapter = new PartieAdapter(this, bdd.getListParties(tri?"ASC":"DESC"));
+ 		PartieAdapter adapter = new PartieAdapter(this, bdd.getListParties(tri?"ASC":"DESC"));
 		setListAdapter(adapter);
 	}
 

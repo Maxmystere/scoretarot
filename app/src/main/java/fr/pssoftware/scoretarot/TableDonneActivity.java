@@ -25,6 +25,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class TableDonneActivity extends Activity {
 	private ScoreTarotDB bdd;
 	private Partie partie = null;
@@ -34,6 +37,7 @@ public class TableDonneActivity extends Activity {
 	private int item_selected = 0;
 	final private static int MODIF_DONNE_DIALOG = 1;
 	private boolean tri=false;
+    private AdView mAdView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,9 @@ public class TableDonneActivity extends Activity {
 						Toast.LENGTH_LONG).show();
 			}
 		});
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 	}
 
 	@Override
@@ -84,7 +91,6 @@ public class TableDonneActivity extends Activity {
 		inflater.inflate(R.menu.activity_donne_context, menu);
 	}
 
-	@SuppressWarnings("deprecation")
 	public boolean onContextItemSelected(android.view.MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
@@ -122,10 +128,33 @@ public class TableDonneActivity extends Activity {
 		list.setAdapter(adapter);
 	}
 
+    /** Called when leaving the activity */
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    /** Called when returning to the activity */
+    @Override
 	public void onResume() {
 		super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
 		refresh_data();
 	}
+
+    /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

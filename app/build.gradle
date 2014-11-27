@@ -5,7 +5,7 @@ android {
         ScoreTarot {
             keyAlias 'scoretarot'
             keyPassword '1tqr1+2s'
-            storeFile file('/home/seraphin-local/ownCloud/Android/Keystore/Keystore_Android1')
+            storeFile file('/home/seraphin-local/ownCloud/Android/Keystore/Keystore_Android')
             storePassword '1tqr1+2s'
         }
     }
@@ -31,4 +31,6 @@ android {
 
 dependencies {
     compile files('libs/achartengine-1.1.0.jar')
+    compile 'com.android.support:appcompat-v7:20.+'
+    compile 'com.google.android.gms:play-services:6.1.+'
 }

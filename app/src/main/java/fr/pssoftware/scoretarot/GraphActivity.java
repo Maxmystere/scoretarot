@@ -30,6 +30,9 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 public class GraphActivity extends Activity {
 	public static final String TYPE = "type";
@@ -53,7 +56,9 @@ public class GraphActivity extends Activity {
 	private XYSeriesRenderer[] renderer;
 	private int[] sc;
 
-	@Override
+    private AdView mAdView;
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mRenderer.setApplyBackgroundColor(true);
@@ -71,11 +76,17 @@ public class GraphActivity extends Activity {
 		Bundle b = getIntent().getExtras();
 		partie = bdd.getPartie(b.getLong("id_partie"));
 
+        mAdView = (AdView) findViewById(R.id.adViewGraph);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
 		listDonne = bdd.getListDonnes(partie.getId(),true);
 		if (mChartView == null) {
 			sc = new int[partie.getNbJoueurs()];
@@ -157,8 +168,26 @@ public class GraphActivity extends Activity {
 			mChartView.invalidate();
 		}
 	}
+    /** Called when leaving the activity */
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
 
-	@Override
+   /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
+    }
+
+
+    @Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);

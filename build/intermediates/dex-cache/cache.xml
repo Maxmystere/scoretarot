@@ -2,24 +2,34 @@
 <pre-dex-items>
 
     <item
-<<<<<<< HEAD
-        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-rc2-97b3351fb1434ab0d1c237855bf23ee9b995f670.jar"
-        jar="/home/seraphin-local/Documents/ScoreTarot/app/libs/achartengine-1.1.0-rc2.jar"
+        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/classes-2d21b37bd8f792ecf10b6dd9b90c5c2b8b9dfed8.jar"
+        jar="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.1.71/classes.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="abcc44f100626232dee90d5ef7f0b2a1941508d0"/>
+        sha1="0f6d5c1ef2e982c3b7858408e3df389cf5d202da"/>
     <item
-        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/classes-78f880b2c63929b603320f66c34cad74dd540b03.jar"
-        jar="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/exploded-aar/com.actionbarsherlock/actionbarsherlock/4.4.0/classes.jar"
+        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/classes-cb4eca5b185de5f9727e6d1a04d9159de8510812.jar"
+        jar="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="af64527b748983a75de9c0756e9768b56b240a49"/>
-=======
-        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-422b0e1303df3ba8148487f3fdca791ca6bc4da8.jar"
-        jar="/home/seraphin-local/Documents/ScoreTarot/app/libs/achartengine-1.1.0.jar"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-da3f51e75009e3999d184ff1f9ab5926367e426c.jar"
+        jar="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250"/>
->>>>>>> new
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-7c448f5937595d580514e9c0930c41612aec3b6d.jar"
+        jar="/home/seraphin-local/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/pre-dexed/debug/classes-470911cfaa79b8c5c0fc8d67c668266ea5920a34.jar"
+        jar="/home/seraphin-local/Documents/ScoreTarot/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
 
 </pre-dex-items>
