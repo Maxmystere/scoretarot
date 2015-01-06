@@ -102,7 +102,7 @@ public class GraphActivity extends Activity {
 					SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
 					if (seriesSelection == null) {
 						Toast.makeText(getApplicationContext(),
-								"If faut toucher un point !",
+								"Il faut toucher un point !",
 								Toast.LENGTH_SHORT).show();
 					} else {
 						pos = (int) (seriesSelection.getPointIndex());
@@ -124,7 +124,7 @@ public class GraphActivity extends Activity {
 							.getCurrentSeriesAndPoint();
 					if (seriesSelection == null) {
 						Toast.makeText(getApplicationContext(),
-								"If faut toucher un point !",
+								"Il faut toucher un point !",
 								Toast.LENGTH_SHORT).show();
 						return true;
 					} else {

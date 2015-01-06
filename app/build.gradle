@@ -15,16 +15,18 @@ android {
         applicationId "fr.pssoftware.scoretarot"
         minSdkVersion 14
         targetSdkVersion 17
-        versionCode 21
-        versionName '2.1'
+        versionCode 22
+        versionName '2.2'
         signingConfig signingConfigs.ScoreTarot
     }
+/*
     buildTypes {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+*/
     productFlavors {
     }
 }
