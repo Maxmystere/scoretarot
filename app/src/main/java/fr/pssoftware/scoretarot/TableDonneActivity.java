@@ -54,6 +54,7 @@ public class TableDonneActivity extends Activity {
 		for (String j : partie.getListJoueurs()) {
 			TextView child = new TextView(this);
 			child.setText(j);
+            child.setTextAppearance(this,android.R.style.TextAppearance_Medium);
 			child.setBackgroundColor(Color.parseColor("#000000"));
 			child.setGravity(Gravity.CENTER);
 			child.setLines(1);

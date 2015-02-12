@@ -63,8 +63,8 @@ public class GraphActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		mRenderer.setApplyBackgroundColor(true);
 		mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
-		mRenderer.setLabelsTextSize(12 * this.getResources().getDisplayMetrics().scaledDensity);
-		mRenderer.setLegendTextSize(12 * this.getResources().getDisplayMetrics().scaledDensity);
+		mRenderer.setLabelsTextSize(16 * this.getResources().getDisplayMetrics().scaledDensity);
+		mRenderer.setLegendTextSize(16 * this.getResources().getDisplayMetrics().scaledDensity);
 		mRenderer.setMargins(new int[] { 10, 20, 0, 10 });
 		mRenderer.setFitLegend(true);
 		mRenderer.setPointSize(3* this.getResources().getDisplayMetrics().scaledDensity );
