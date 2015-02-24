@@ -1,5 +1,6 @@
 package fr.pssoftware.scoretarot;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -84,7 +85,7 @@ public class TableDonneCell extends FrameLayout {
 	
 	public void refresh(){
 		String tr="";
-		switch(contrat){
+ 		switch(contrat){
 		case CONTRAT_PASSE:
 			tr="00";
 			break;
@@ -101,14 +102,28 @@ public class TableDonneCell extends FrameLayout {
 			tr="22";
 			break;
 		}
+        if (role>ROLE_DEFENSE) {
+            wScore.setTextColor(themeUtils.getLight((Activity) this.getContext()));
+            wPoints.setTextColor(themeUtils.getLight((Activity) this.getContext()));
+            wTotalPoints.setTextColor(themeUtils.getLight((Activity) this.getContext()));
+            wPetit.setTextColor(themeUtils.getLight((Activity) this.getContext()));
+            wPoignee.setTextColor(themeUtils.getLight((Activity) this.getContext()));
+            wChelem.setTextColor(themeUtils.getLight((Activity) this.getContext()));
+        }else {
+            wScore.setTextColor(themeUtils.getForeground((Activity) this.getContext()));
+            wPoints.setTextColor(themeUtils.getForeground((Activity) this.getContext()));
+            wTotalPoints.setTextColor(themeUtils.getForeground((Activity) this.getContext()));
+            wPetit.setTextColor(themeUtils.getForeground((Activity) this.getContext()));
+            wPoignee.setTextColor(themeUtils.getForeground((Activity) this.getContext()));
+            wChelem.setTextColor(themeUtils.getForeground((Activity) this.getContext()));
+        }
 		if (total_points<0 && role>ROLE_DEFENSE ){
-			tr="#"+tr+"0000";
+            setBackgroundColor(Color.parseColor("#"+tr+"0000"));
 		}else if (total_points>0 && role>ROLE_DEFENSE ){
-			tr="#00"+tr+"00";
+            setBackgroundColor(Color.parseColor("#00"+tr+"00"));
 		}else{
-			tr="#000000";
-		}
-		setBackgroundColor(Color.parseColor(tr));
+            setBackgroundColor(themeUtils.getBackground((Activity) this.getContext()))            ;
+         }
 		wPoints.setText(String.valueOf(points));
 		wTotalPoints.setText(String.valueOf(total_points));
 		wImg.setVisibility(View.VISIBLE);
@@ -166,7 +181,7 @@ public class TableDonneCell extends FrameLayout {
 			break;
 		}
 		wScore.setText(String.valueOf(score));
-		wFooter.setVisibility(footerVisibility);
+//		wFooter.setVisibility(footerVisibility);
 	}
 	
 	public void setFooterVisibility(int visible){

@@ -20,8 +20,8 @@
     android:id="@+id/td_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/darker_gray"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:background="#ff000000">
     </LinearLayout>
 
     <ListView
@@ -29,9 +29,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:divider="#00000000"
     android:dividerHeight="0dp"
-    android:longClickable="true" >
+    android:longClickable="true"
+        android:drawSelectorOnTop="false"
+        android:divider="#ff000000">
 </ListView>
 
  </LinearLayout>

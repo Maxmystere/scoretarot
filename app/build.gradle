@@ -3,14 +3,14 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
     }
-    compileSdkVersion 17
-    buildToolsVersion "21.1.1"
+    compileSdkVersion 21
+    buildToolsVersion '21.1.2'
     defaultConfig {
         applicationId "fr.pssoftware.scoretarot"
         minSdkVersion 14
-        targetSdkVersion 17
-        versionCode 23
-        versionName '2.3'
+        targetSdkVersion 21
+        versionCode 25
+        versionName '2.5'
     }
 /*
     buildTypes {
@@ -26,6 +26,7 @@ android {
 
 dependencies {
     compile files('libs/achartengine-1.1.0.jar')
-    compile 'com.android.support:appcompat-v7:20.+'
-    compile 'com.google.android.gms:play-services:6.1.+'
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.google.android.gms:play-services:6.5.87'
+    compile 'com.android.support:support-v4:21.0.3'
 }

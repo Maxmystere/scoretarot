@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.app.Activity;
 
 /**
  * @author seraphin
@@ -20,7 +22,8 @@ public class DonneAdapter extends BaseAdapter {
 	private List<Donne> listDonne;
 	private Context context;
 	private LayoutInflater mInflater;
-	
+    private TextView n;
+
 	public DonneAdapter(Context ctx, List<Donne> lDonne){
 		context=ctx;
 		listDonne=lDonne;
@@ -54,10 +57,13 @@ public class DonneAdapter extends BaseAdapter {
 		  } else {
 		  	layoutItem = (LinearLayout) convertView;
 		  }
-		  Donne donne=listDonne.get(position);
+            Donne donne=listDonne.get(position);
+            TextView n=(TextView) layoutItem.findViewById(R.id.num);
+            n.setText(String.valueOf(donne.getId()));
+            n.setBackgroundColor(themeUtils.getBackground((Activity) context));
 		  int nbj=donne.getPartie().getNbJoueurs();
 		  for (int i=0;i<nbj;i++){
-			  TableDonneCell cell=(TableDonneCell)layoutItem.getChildAt(i);
+			  TableDonneCell cell=(TableDonneCell)layoutItem.getChildAt(i+1);
 			  cell.setVisibility(View.VISIBLE);
 			  cell.setRole(TableDonneCell.ROLE_DEFENSE);
 			  cell.setPoints("");
@@ -76,12 +82,12 @@ public class DonneAdapter extends BaseAdapter {
 			  cell.setContrat(donne.getContrat());
 			  int pj=donne.getPointJoueur(i);
 			  cell.setTotal_Points(pj);
-			  if (donne.getPetit()==0 && donne.getPoignee()==0 && donne.getChelem()==0) cell.setFooterVisibility(View.GONE);
-			  else  cell.setFooterVisibility(View.VISIBLE);
+//			  if (donne.getPetit()==0 && donne.getPoignee()==0 && donne.getChelem()==0) cell.setFooterVisibility(View.GONE);
+//			  else  cell.setFooterVisibility(View.VISIBLE);
 			  cell.setScore(donne.getScore(i));
 			  cell.refresh();	
 	  }
-		  for (int i=nbj;i<6;i++){
+		  for (int i=nbj+1;i<7;i++){
 			  layoutItem.getChildAt(i).setVisibility(View.GONE);
 		  }
 		  

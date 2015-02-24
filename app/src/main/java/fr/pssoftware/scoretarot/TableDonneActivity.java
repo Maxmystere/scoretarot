@@ -5,13 +5,14 @@ import java.util.List;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -41,27 +42,42 @@ public class TableDonneActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+        themeUtils.initTheme(this);
 		super.onCreate(savedInstanceState);
-		bdd = ScoreTarotDB.getDB(this);
+ 		bdd = ScoreTarotDB.getDB(this);
 		setContentView(R.layout.activity_table_donne);
 		ActionBar actionBar = this.getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		Bundle b = getIntent().getExtras();
 		partie = bdd.getPartie(b.getLong("id_partie"));
 
+        int scale=Math.round(this.getResources().getDisplayMetrics().scaledDensity);
 		LinearLayout header = (LinearLayout) findViewById(R.id.td_header);
-		header.removeAllViewsInLayout();
-		for (String j : partie.getListJoueurs()) {
-			TextView child = new TextView(this);
+        header.removeAllViewsInLayout();
+        TextView child = new TextView(this);
+        child.setText("Donne");
+        child.setGravity(Gravity.CENTER);
+        child.setEnabled(true);
+        child.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+        child.setBackgroundColor(themeUtils.getBackground(this));
+        child.setLines(1);
+        child.setPadding(scale,0,0,0);
+        LinearLayout.LayoutParams layoutParam = new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParam.weight = 0.3f;
+        layoutParam.setMargins(scale, scale, scale, scale);
+        header.addView(child, layoutParam);
+        layoutParam = new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParam.weight = 1;
+        layoutParam.setMargins(scale, scale,scale, scale);
+        for (String j : partie.getListJoueurs()) {
+			child = new TextView(this);
 			child.setText(j);
             child.setTextAppearance(this,android.R.style.TextAppearance_Medium);
-			child.setBackgroundColor(Color.parseColor("#000000"));
-			child.setGravity(Gravity.CENTER);
+            child.setBackgroundColor(themeUtils.getBackground(this));
+ 			child.setGravity(Gravity.CENTER);
 			child.setLines(1);
-			LinearLayout.LayoutParams layoutParam = new LinearLayout.LayoutParams(
-					0, LinearLayout.LayoutParams.WRAP_CONTENT);
-			layoutParam.weight = 1;
-			layoutParam.setMargins(1, 1, 1, 1);
 			header.addView(child, layoutParam);
 		}
 

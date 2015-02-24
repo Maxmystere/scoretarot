@@ -17,17 +17,17 @@ import android.widget.ListView;
 
 
 
-
 public class MainActivity extends ListActivity {
 	private ScoreTarotDB bdd;
 	private boolean tri=false;
 	final private static int MODIF_PARTIE_DIALOG = 4;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+        themeUtils.initTheme(this);
+       super.onCreate(savedInstanceState);
 		registerForContextMenu(getListView());
 		bdd = ScoreTarotDB.getDB(this);
- 	}
+    }
 
 	protected void onResume() {
 		super.onResume();
@@ -86,7 +86,15 @@ public class MainActivity extends ListActivity {
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
 		switch (item.getItemId()) {
+            case R.id.menu_preferences:
+                intent = new Intent(MainActivity.this,
+                        SettingsActivity.class);
+                startActivity(intent);
+ //               SharedPreferences mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+ //               themeUtils.changeToTheme(this, mySharedPreferences.getString("theme_list", ""));
+                return true;
 		case R.id.menu_tri:
 			tri=(!tri);
 			onResume();
@@ -136,4 +144,10 @@ public class MainActivity extends ListActivity {
 			break;
 		}
 	}
+/*    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }*/
 }

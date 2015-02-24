@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright (c) 2010-2014 Philippe SERAPHIN
+  ~
+  ~
+  ~ This file is part of ScoreTarot.
+  ~
+  ~ ScoreTarot is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+     <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:colorPrimary">#009900</item>
+        <item name="android:colorPrimaryDark">#006600</item>
+        <item name="android:colorAccent">#00bb00</item>
+    </style>
+
+    <style name="AppThemeLight" parent="AppBaseThemeLight">
+        <item name="android:colorPrimary">#009900</item>
+        <item name="android:colorPrimaryDark">#006600</item>
+        <item name="android:colorAccent">#00bb00</item>   </style>
+
+</resources>

@@ -2,6 +2,9 @@ package fr.pssoftware.scoretarot;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.content.res.ColorStateList;
+import android.graphics.Paint;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -33,7 +36,6 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-
 public class GraphActivity extends Activity {
 	public static final String TYPE = "type";
 
@@ -43,8 +45,7 @@ public class GraphActivity extends Activity {
 
 	private GraphicalView mChartView;
 
-	int[] colors = new int[] { Color.BLUE, Color.YELLOW, Color.RED,
-			Color.GREEN, Color.MAGENTA, Color.CYAN };
+	int[] colors = new int[] {  Color.RED, Color.BLUE, Color.GRAY, Color.GREEN, Color.CYAN,Color.MAGENTA};
 
 	private ScoreTarotDB bdd;
 	private Partie partie = null;
@@ -60,14 +61,20 @@ public class GraphActivity extends Activity {
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
+        themeUtils.initTheme(this);
 		super.onCreate(savedInstanceState);
-		mRenderer.setApplyBackgroundColor(true);
-		mRenderer.setBackgroundColor(Color.argb(100, 50, 50, 50));
-		mRenderer.setLabelsTextSize(16 * this.getResources().getDisplayMetrics().scaledDensity);
-		mRenderer.setLegendTextSize(16 * this.getResources().getDisplayMetrics().scaledDensity);
-		mRenderer.setMargins(new int[] { 10, 20, 0, 10 });
-		mRenderer.setFitLegend(true);
-		mRenderer.setPointSize(3* this.getResources().getDisplayMetrics().scaledDensity );
+        float scale=this.getResources().getDisplayMetrics().scaledDensity;
+         mRenderer.setShowGrid(true);
+        mRenderer.setMarginsColor(themeUtils.getBackground(this));
+		mRenderer.setLabelsTextSize(16 * scale);
+		mRenderer.setLegendTextSize(16 * scale);
+        mRenderer.setYLabelsAlign(Paint.Align.LEFT);
+        mRenderer.setYLabelsPadding(-2 * scale);
+        mRenderer.setYLabelsVerticalPadding(-5 * scale);
+        int marges=Math.round(5*scale);
+		mRenderer.setMargins(new int[]{marges, marges, 0, marges});
+        mRenderer.setFitLegend(true);
+		mRenderer.setPointSize(5* scale );
 		mRenderer.setPanEnabled(false);
 		bdd = ScoreTarotDB.getDB(this);
 		setContentView(R.layout.activity_graph);
@@ -95,7 +102,7 @@ public class GraphActivity extends Activity {
 			LinearLayout layout = (LinearLayout) findViewById(R.id.graphLayout);
 			mChartView = ChartFactory.getLineChartView(this, mDataset,
 					mRenderer);
-			mRenderer.setClickEnabled(true);
+ 			mRenderer.setClickEnabled(true);
 			mChartView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -150,6 +157,7 @@ public class GraphActivity extends Activity {
 				sc[i] = 0;
 				int j = 1;
 				series[i].clear();
+                series[i].add(0, 0);
 				for (Donne d : listDonne) {
 					sc[i] += d.getPointJoueur(i);
 					series[i].add(j++, sc[i]);
@@ -160,6 +168,7 @@ public class GraphActivity extends Activity {
 				sc[i] = 0;
 				int j = 1;
 				series[i].clear();
+                series[i].add(0, 0);
 				for (Donne d : listDonne) {
 					sc[i] += d.getPointJoueur(i);
 					series[i].add(j++, sc[i]);

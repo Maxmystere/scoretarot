@@ -95,4 +95,18 @@
     <string name="mort_preneur">En partie à 6 joueurs, le mort ne peut ni prendre, ni être appelé !</string>
 
     <string name="banner_ad_unit_id">ca-app-pub-9915051541205356/1232658423</string>
+    <string name="title_activity_activity_config">Configuration</string>
+    <string name="menu_preferences">Préférences</string>
+    <string name="preferences_title">Préférences</string>
+    <string name="preferences_theme_court">Thème</string>
+    <string name="preferences_theme_long">Theme à utiliser</string>
+    <string-array name="preference_list_entries">
+        <item>Sombre</item>
+        <item>Clair</item>
+    </string-array>
+    <string-array name="preference_list_values">
+        <item>Sombre</item>
+        <item>Clair</item>
+    </string-array>
+    <string name="theme_default">Sombre</string>
 </resources>

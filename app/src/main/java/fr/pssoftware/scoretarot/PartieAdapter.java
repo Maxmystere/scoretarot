@@ -45,7 +45,7 @@ public class PartieAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LinearLayout layoutItem;
+ 		LinearLayout layoutItem;
 		if (convertView == null) {
 			layoutItem = (LinearLayout) mInflater.inflate(
 					R.layout.list_parties, parent, false);
