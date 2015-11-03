@@ -9,8 +9,8 @@ android {
         applicationId "fr.pssoftware.scoretarot"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 25
-        versionName '2.5'
+        versionCode 26
+        versionName '2.6'
     }
 /*
     buildTypes {
@@ -26,8 +26,7 @@ android {
 
 dependencies {
     compile files('libs/achartengine-1.1.0.jar')
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.google.android.gms:play-services:8.1.0'
-    compile 'com.android.support:support-v4:23.1.0'
-    compile 'com.google.android.gms:play-services-ads:8.1.0'
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.google.android.gms:play-services:6.5.87'
+    compile 'com.android.support:support-v4:21.0.3'
 }
