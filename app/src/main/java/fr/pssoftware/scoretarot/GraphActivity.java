@@ -113,6 +113,7 @@ public class GraphActivity extends Activity {
 								Toast.LENGTH_SHORT).show();
 					} else {
 						pos = (int) (seriesSelection.getPointIndex());
+						if (pos >= listDonne.size()) pos=listDonne.size()-1;
 						donne = listDonne.get(pos);
 						Toast.makeText(
 								getApplicationContext(),
