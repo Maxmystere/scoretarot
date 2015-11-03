@@ -1,6 +1,8 @@
 package fr.pssoftware.scoretarot;
 
 import android.app.ListActivity;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.AlertDialog;
@@ -24,7 +26,22 @@ public class MainActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         themeUtils.initTheme(this);
-       super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
+		final SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		if (settings.getBoolean("isFirstRun", true)) {
+			new AlertDialog.Builder(this)
+					.setTitle("Identifiants")
+					.setMessage("Afin de me garantir un (très léger revenu, des bannières publicitaires apparaissent dans cette application," +
+							" vos identifiants sont nécessaires pour  personnaliser le contenu de ces annonces." +
+							" Ceux-ci et d'autres informations sur votre appareil sont partagés avec nos partenaires de publicité et d'analyse.")
+					.setNeutralButton("Accepter", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which){
+							settings.edit().putBoolean("isFirstRun", false).commit();
+						}
+					}).show();
+		}
 		registerForContextMenu(getListView());
 		bdd = ScoreTarotDB.getDB(this);
     }
