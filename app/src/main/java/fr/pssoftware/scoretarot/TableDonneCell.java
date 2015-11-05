@@ -31,6 +31,7 @@ public class TableDonneCell extends FrameLayout {
 	private int petit=0;
 	private int poignee=0;
 	private int chelem=0;
+	private int misere=0;
 	private int footerVisibility;
 	private TextView wPoints;
 	private TextView wTotalPoints;
@@ -38,6 +39,7 @@ public class TableDonneCell extends FrameLayout {
 	private TextView wPoignee;
 	private TextView wScore;
 	private TextView wChelem;
+	private TextView wMisere;
 	private ImageView wImg;
 	private LinearLayout wFooter;
 	
@@ -68,6 +70,7 @@ public class TableDonneCell extends FrameLayout {
 		petit = a.getInt(R.styleable.TableDonneCell_petit, 0);
 		poignee = a.getInt(R.styleable.TableDonneCell_poignee, 0);
 		chelem = a.getInt(R.styleable.TableDonneCell_chelem, 0);
+		misere = a.getInt(R.styleable.TableDonneCell_misere, 0);
 		footerVisibility = a.getInt(R.styleable.TableDonneCell_footerVisibility, 0);
 		
 		wImg=(ImageView) findViewById(R.id.tdc_img);
@@ -77,6 +80,7 @@ public class TableDonneCell extends FrameLayout {
 		wPetit=(TextView) findViewById(R.id.tdc_petit);
 		wPoignee=(TextView) findViewById(R.id.tdc_poignee);
 		wChelem=(TextView) findViewById(R.id.tdc_chelem);
+		wMisere=(TextView) findViewById(R.id.tdc_misere);
 		wFooter=(LinearLayout) findViewById(R.id.tdc_footer);
 		refresh();
 		
@@ -148,6 +152,13 @@ public class TableDonneCell extends FrameLayout {
 			wPetit.setText("+1");
 		}else if(petit==2){
 			wPetit.setText("-1");
+		}
+		if (misere==0){
+			wMisere.setText("");
+		}else if(misere==-1){
+			wMisere.setText("-M");
+		}else if(misere==1) {
+			wMisere.setText("+M");
 		}
 		switch(poignee){
 		case 0:
@@ -250,6 +261,13 @@ public class TableDonneCell extends FrameLayout {
 
 	public int getChelem() {
 		return chelem;
+	}
+
+	public void setMisere(int misere) {
+		this.misere = misere;
+	}
+	public int getMisere() {
+		return misere;
 	}
 
 	public void setChelem(int chelem) {

@@ -51,8 +51,9 @@
     <string name="donne_passee">Passée de : %d\n</string>
     <string name="donne_chutee">Chutée de : %d\n</string>
     <string name="donne_points">Points marqués : %d\n</string>
-   <string name="donne_bouts">Nombre de bouts : %d\n</string>
-    
+    <string name="donne_bouts">Nombre de bouts : %d\n</string>
+    <string name="donne_misere">Misère : %s\n</string>
+
     <string name="contrat">Contrat </string>
     <string name="preneur">Preneur</string>
     <string name="appele">Appelé</string>
@@ -64,6 +65,7 @@
     <string name="oudlers">Bouts</string>
     <string name="poignee">Poignée</string>
     <string name="chelem">Chelem</string>
+    <string name="misere">Misère (non officiel)</string>
 
     <string-array name="l_petit">
         <item>Aucun</item>

@@ -72,6 +72,9 @@ public class DonneAdapter extends BaseAdapter {
 			  cell.setChelem(0);
 			  if (nbj==6 && donne.getMort()==i) cell.setRole(TableDonneCell.ROLE_MORT);
 			  if (nbj>4 && donne.getAppele()==i) cell.setRole(TableDonneCell.ROLE_APPELE);
+			  if(donne.getMisere()<0) cell.setMisere(0);
+			  else if (donne.getMisere()==i) cell.setMisere(1);
+			  else if(donne.getMisere()!=-1) cell.setMisere(-1);
 			  if (donne.getPreneur()==i){
 				  cell.setRole(TableDonneCell.ROLE_PRENEUR);
 				  cell.setPetit(donne.getPetit());

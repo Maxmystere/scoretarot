@@ -11,6 +11,7 @@ public class Donne {
 	private int preneur=-1;
 	private int appele=-1;
 	private int mort=-1;
+	private int misere=-1;
 	private int points;
 	private int bouts;
 	private int petit;
@@ -94,6 +95,14 @@ public class Donne {
 
 	public void setMort(int mort) {
 		this.mort = mort;
+	}
+
+	public int getMisere() {
+		return misere;
+	}
+
+	public void setMisere(int misere) {
+		this.misere = misere;
 	}
 
 	public int getPoints() {
@@ -228,6 +237,10 @@ public class Donne {
 			else p*=-1;
 			break;
 		}
+		if (partie.getNbJoueurs()!=6 && misere != 0){
+			if (joueur == misere-1) p+=10*(partie.getNbJoueurs()-1);
+			else p-=10;
+		}
 		return p;
 	}
 	
@@ -246,6 +259,7 @@ public class Donne {
 		ret+=ress.getStringArray(R.array.donne_petit)[petit];
 		ret+=ress.getStringArray(R.array.donne_poignee)[poignee];
 		ret+=ress.getStringArray(R.array.donne_chelem)[chelem];
+        if (misere!=-1) ret+=String.format(ress.getString(R.string.donne_misere),partie.getListJoueurs().get(misere));
 		return ret;
 	}
 }

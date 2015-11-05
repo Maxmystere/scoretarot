@@ -8,6 +8,7 @@
         <attr name="petit" format="integer" />
         <attr name="poignee" format="integer" />
         <attr name="chelem" format="integer" />
+        <attr name="misere" format="integer" />
         <attr name="role" format="integer" />
         <attr name="footerVisibility" format="integer" />
         </declare-styleable>

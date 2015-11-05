@@ -22,6 +22,7 @@ public class DonneDialog extends AlertDialog {
 	private Spinner petit;
 	private Spinner poignee;
 	private Spinner chelem;
+	private Spinner misere;
 	private ToggleButton attaqueButton;
 	private EditText points;
 	private EditText bouts;
@@ -47,6 +48,7 @@ public class DonneDialog extends AlertDialog {
 			petit.setSelection(donne.getPetit());
 			poignee.setSelection(donne.getPoignee());
 			chelem.setSelection(donne.getChelem());
+			misere.setSelection(donne.getMisere()+1);
 		} else {
 			preneur.setSelection(0);
 			appele.setSelection(0);
@@ -57,6 +59,7 @@ public class DonneDialog extends AlertDialog {
 			petit.setSelection(0);
 			poignee.setSelection(0);
 			chelem.setSelection(0);
+			misere.setSelection(0);
 		}
 		attaqueButton.setChecked(true);
 		contrat.setFocusable(true);
@@ -128,6 +131,15 @@ public class DonneDialog extends AlertDialog {
 		attaqueButton = (ToggleButton) alertDialogView.findViewById(R.id.nd_attaque);
 		points = (EditText) alertDialogView.findViewById(R.id.nd_points);
 		bouts = (EditText) alertDialogView.findViewById(R.id.nd_bouts);
+		String[] listjJoueursMisere = new String[listjJoueurs.length+1];
+		listjJoueursMisere[0]="Aucun";
+		for(int i=0;i < listjJoueurs.length;i++)
+			listjJoueursMisere[i+1] = listjJoueurs[i];
+		ArrayAdapter<String> adapterMisere = new ArrayAdapter<String>(ctx,
+				android.R.layout.simple_spinner_item, listjJoueursMisere);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		misere = (Spinner) alertDialogView.findViewById(R.id.nd_misere);
+		misere.setAdapter(adapterMisere);
 		super.onCreate(savedInstanceState);
 
 		mAcceptButton = getButton(DialogInterface.BUTTON_POSITIVE);
@@ -148,6 +160,7 @@ public class DonneDialog extends AlertDialog {
 				if (contrat.getSelectedItemPosition() > 0) {
 					donne.setContrat(contrat.getSelectedItemPosition());
 					donne.setPreneur(preneur.getSelectedItemPosition());
+					donne.setMisere(misere.getSelectedItemPosition()-1);
 					if (partie.getNbJoueurs() > 4)
 						donne.setAppele(appele.getSelectedItemPosition());
 					if (attaqueButton.isChecked()) {

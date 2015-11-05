@@ -9,11 +9,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.util.Log;
 
 public class ScoreTarotDB extends SQLiteOpenHelper {
 	private static ScoreTarotDB INSTANCE=null;
 	private SQLiteDatabase bdd;
-	private static final int VERSION_DB = 1;
+	private static final int VERSION_DB = 2;
 	private static final String NAME_DB = "scoretarot.db";
 	private static final String TABLE_PARTIES = "parties";
 	private static final String TABLE_DONNES = "donnes";
@@ -36,6 +37,7 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 	private static final String DONNES_PETIT = "petit";
 	private static final String DONNES_POIGNEE = "poignee";
 	private static final String DONNES_CHELEM = "chelem";
+	private static final String DONNES_MISERE = "misere";
 	private static final String CREATE_PARTIES = "CREATE TABLE " + TABLE_PARTIES + " (" + PARTIES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
 																						PARTIES_DESCR+" TEXT NOT NULL, " +
 																						PARTIES_NBJOUEURS+" INTEGER NOT NULL);";
@@ -53,7 +55,8 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 																					DONNES_BOUTS+" INTEGER NOT NULL," +
 																					DONNES_PETIT+" INTEGER NOT NULL," +
 																					DONNES_POIGNEE+" INTEGER NOT NULL," +
-																					DONNES_CHELEM+" INTEGER NOT NULL);";
+																					DONNES_CHELEM+" INTEGER NOT NULL,"+
+																					DONNES_MISERE+" INTEGER NOT NULL DEFAULT -1);";
 
 	private ScoreTarotDB(Context context, String name, CursorFactory factory,
 			int version) {
@@ -81,10 +84,10 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE parties;");
-		db.execSQL("DROP TABLE partie_joueurs;");
-		db.execSQL("DROP TABLE donnes;");
-		onCreate(db);
+		Log.e("DatabaseVersion", String.valueOf(oldVersion) + " -> " + String.valueOf(newVersion));
+		if (oldVersion == 1 && newVersion== 2){
+			db.execSQL("ALTER TABLE donnes ADD COLUMN misere INTEGER NOT NULL DEFAULT -1");
+		}
 	}
 	
 	public long insertPartie(Partie partie){
@@ -183,6 +186,7 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 		values.put(DONNES_PETIT, donne.getPetit());
 		values.put(DONNES_POIGNEE, donne.getPoignee());
 		values.put(DONNES_CHELEM, donne.getChelem());
+		values.put(DONNES_MISERE, donne.getMisere());
 		if (donne.getId()==0){
 			ret=bdd.insert(TABLE_DONNES, null, values);
 		}else{
@@ -200,7 +204,7 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 		int[] score=new int[p.getNbJoueurs()];
 		List<Donne> l= new ArrayList<Donne>();
 		Cursor c = bdd.query( TABLE_DONNES,
-							new String[] {DONNES_ID, DONNES_ID_PARTIE, DONNES_CONTRAT,DONNES_PRENEUR, DONNES_APPELE,DONNES_MORT,DONNES_POINTS,DONNES_BOUTS,DONNES_PETIT,DONNES_POIGNEE,DONNES_CHELEM},
+							new String[] {DONNES_ID, DONNES_ID_PARTIE, DONNES_CONTRAT,DONNES_PRENEUR, DONNES_APPELE,DONNES_MORT,DONNES_POINTS,DONNES_BOUTS,DONNES_PETIT,DONNES_POIGNEE,DONNES_CHELEM,DONNES_MISERE},
 							DONNES_ID_PARTIE + "=?",new String[] { String.valueOf(idPartie) },
 							null,null,null);
 		if (c.getCount() > 0) {
@@ -218,6 +222,7 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 				donne.setPetit(c.getInt(8));
 				donne.setPoignee(c.getInt(9));
 				donne.setChelem(c.getInt(10));
+				donne.setMisere(c.getInt(11));
 				for (int i=0; i<p.getNbJoueurs(); i++){
 					score[i]+=donne.getPointJoueur(i);
 					donne.setScore(i, score[i]);
@@ -234,7 +239,7 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 	public Donne getDonne(long id) {
 		Donne donne = null;
 		Cursor c = bdd.query(TABLE_DONNES,
-				new String[] { DONNES_ID, DONNES_ID_PARTIE, DONNES_CONTRAT,DONNES_PRENEUR, DONNES_APPELE,DONNES_MORT,DONNES_POINTS,DONNES_BOUTS,DONNES_PETIT,DONNES_POIGNEE,DONNES_CHELEM },
+				new String[] { DONNES_ID, DONNES_ID_PARTIE, DONNES_CONTRAT,DONNES_PRENEUR, DONNES_APPELE,DONNES_MORT,DONNES_POINTS,DONNES_BOUTS,DONNES_PETIT,DONNES_POIGNEE,DONNES_CHELEM,DONNES_MISERE },
 				DONNES_ID + "=?", new String[] { String.valueOf(id) },
 				null, null, null);
 		if (c.getCount() > 0) {
@@ -251,6 +256,7 @@ public class ScoreTarotDB extends SQLiteOpenHelper {
 			donne.setPetit(c.getInt(8));
 			donne.setPoignee(c.getInt(9));
 			donne.setChelem(c.getInt(10));
+			donne.setMisere(c.getInt(11));
 		}
 		c.close();
 		return donne;
